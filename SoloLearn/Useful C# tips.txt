@@ -1,0 +1,651 @@
+- Declare a variable means introducing a variable with a type and name: int i;
+- Assign means giving a value to a declared variable: i = 10;
+- Initialize means both declaring and assigning a value at the same step: int i = 10;
+
+- camelCase for local variables and parameters: userName, totalAmount
+- PascalCase for properties, methods and classes: FirstName, GetTotal() and class SomeClass
+- PascalCase for constants: MaxUsers, DefaultTimeOut
+-------------------------------------------------------
+Console.WriteLine("Hello {0}", yourName); // ✅ Old-style formatting, works since .NET 1.0
+Console.WriteLine("Hello " + yourName); // ✅ String concatenation, simple but less readable for multiple variables
+Console.WriteLine($"Hello {yourName}"); // ✅ String interpolation, recommended since C# 6 (.NET Core and .NET 5+)
+Console.ReadLine(); // Useful when it comes to input
+Console.ReadKey(); // Waits for you to press a key
+
+Note: {0} is a placeholder for the first argument after the format string. 
+You must use a format string with numbered placeholders (e.g., {0}, {1}, etc.), 
+and provide values as additional arguments to Console.WriteLine()
+-------------------------------------------------------
+The var keyword allows the compiler to infer the type of the variable automatically based on the value 
+assigned to it. However, avoid overusing var, as it can reduce code readability when the type is not obvious.
+-------------------------------------------------------
+++i means pre-increment: the variable is incremented before it is used in the expression.
+i++ means post-increment: the variable is used in the expression before it is incremented.
+
+Example:
+
+int x = 3;
+int y = ++x;
+Note: Here x becomes 4 and y then becomes 4
+
+int x = 3;
+int y = x++;
+Note: Here x becomes 4 and y then becomes 3
+-------------------------------------------------------
+switch (num)
+            {
+                case 1:
+                    Console.WriteLine("one");
+                    break;
+                case 2:
+                    Console.WriteLine("two");
+                    break;
+                case 3:
+                    Console.WriteLine("three");
+                    break;
+		default:
+                    Console.WriteLine("default");
+                    break;
+            }
+-------------------------------------------------------
+You can shorten if and while 
+
+if(++num < 6) 
+	Console.WriteLine(num);
+
+while(++num < 6)
+	Console.WriteLine(num);
+-------------------------------------------------------
+For-loops can look different as long as the needed variable are used somewhere
+else like this:
+
+	    int x = 10;
+            for ( ; x > 0 ; )
+            {
+                Console.WriteLine(x);
+                x -= 3;
+            }
+
+-------------------------------------------------------
+do while loops
+
+	    int x = 42;
+            do {
+                Console.WriteLine(x);
+                x++;
+            	} while(x < 10);
+-------------------------------------------------------
+Instead of writing an if statement, you can sometimes use a ternary operator for simple conditions:
+
+	    int age = 42;
+            string msg;
+            msg = (age >= 18) ? "Welcome" : "Sorry";
+            Console.WriteLine(msg);
+-------------------------------------------------------
+Difference between static and non static functions:
+Static method — no object needed
+Instance method — needs an object
+
+Example: 
+
+class Calculator {
+    public static int Add(int a, int b) {
+        return a + b;
+    }
+
+    public int Multiply(int a, int b) {
+        return a * b;
+    }
+}
+
+int sum = Calculator.Add(2, 3);      // Static method — no object needed
+Calculator calc = new Calculator();
+int product = calc.Multiply(4, 5);   // Instance method — needs an object
+-------------------------------------------------------
+static void GetValues(out int x, out int y)
+        {
+            x = 5;
+            y = 42;
+        }
+        static void Main(string[] args)
+        {
+            int a, b;
+            GetValues(out a, out b);
+            Console.WriteLine(a+" "+b);
+        }
+-------------------------------------------------------
+Value types: Store actual data. When you assign or pass a value type, you copy the data. 
+Modifying the copy does not affect the original.
+
+Reference types: Store a reference (pointer) to the data. When you assign or pass a 
+reference type, you copy the reference, so modifications affect the original object.
+
+Example:
+
+// Value type example (int is a value type)
+int a = 5;
+
+void ModifyValue(int x)
+{
+    x = 10;  // modifies only the copy
+}
+
+ModifyValue(a);
+Console.WriteLine(a); // Output: 5 (original unchanged)
+
+// Passing by ref with value type
+void ModifyValueRef(ref int x)
+{
+    x = 10;  // modifies the original variable
+}
+
+ModifyValueRef(ref a);
+Console.WriteLine(a); // Output: 10 (original modified)
+-------------------------------------------------------
+A parameter can have a default value when there is no arguments.
+Note: You cannot combine ref (or out) with default parameter values 
+because ref requires the caller to explicitly pass a variable.
+
+static void Print(int x=2) 
+        {
+            Console.WriteLine(x);
+        }
+-------------------------------------------------------
+When calling the method, you can use the parameter names to provide the arguments in any order you like.
+Note: You have to do parameter name : your value if you want to do in any order. Otherwise follow the 
+actual order of the function.
+
+Example:
+static int Area(int h, int w)
+        {
+            return h * w;
+        }
+        static void Main(string[] args)
+        {
+            int res = Area(w: 5, h: 8);
+            Console.WriteLine(res);
+        }
+
+-------------------------------------------------------
+When you perform arithmetic with floating-point numbers (float or double), the result is 
+also floating-point. To assign the result to an integer variable, you must explicitly cast the 
+result to int. Casting truncates the decimal part (does not round). 
+
+Note: sal in this case is an int declared from earlier.
+
+sal = (int)(sal * (1 + (per/100.0)));
+-------------------------------------------------------
+static void GetValues(out int x, out int y)
+        {
+            x = 5;
+            y = 42;
+        }
+        static void Main(string[] args)
+        {
+            int a, b;
+            GetValues(out a, out b);
+            Console.WriteLine(a+" "+b);
+        }
+
+-------------------------------------------------------
+Overloading means having multiple methods with the same name but different parameter types and/or 
+number of parameters. The compiler decides which method to call based on the arguments you provide. 
+It looks like this:
+
+	static void Print(int a) {
+            Console.WriteLine("Value: " + a);
+        }
+        static void Print(double a) {
+            Console.WriteLine("Value: " + a);
+        }
+        static void Print(string label, double a) {
+            Console.WriteLine(label + a);
+        }
+-------------------------------------------------------
+Class name = new Class();
+
+Classes are a reference type
+-------------------------------------------------------
+Constructor & Destructors
+
+class Person
+        {
+            private int age;
+            public Person()
+            {
+                Console.WriteLine("Hi there");
+            }
+	    ~Person()
+            {
+                Console.WriteLine("Good bye");
+            }
+        }
+-------------------------------------------------------
+Operator overloading (Can use +, -, *, /, >, <, >=, <=, ==, !=)
+
+NOTE: When you overload comparison operators (>, <, >=, <=), 
+you must implement them in pairs (> with <, >= with <=).
+
+class Box {
+            public int Height { get; set; }
+            public int Width { get; set; }
+            public Box(int h, int w) {
+                Height = h;
+                Width = w;
+            }
+            public static Box operator+(Box a, Box b) {
+                int h = a.Height + b.Height;
+                int w = a.Width + b.Width;
+                Box res = new Box(h, w);
+                return res;
+            }
+        }
+        static void Main(string[] args)
+        {
+            Box b1 = new Box(14, 3);
+            Box b2 = new Box(5, 7);
+            Box b3 = b1 + b2;
+            
+            Console.WriteLine(b3.Height);
+            Console.WriteLine(b3.Width);
+        }
+
+	public static bool operator>(Box a, Box b) 
+	{
+		if(a.Height * a.Width > b.Height * b.Width)  
+		{
+			return true;
+		}	
+		else
+		{
+			return false;
+		}
+ 	}
+-------------------------------------------------------
+Getters and setters properties in a class:
+
+  public string Name //property
+  {
+    get { return name; }
+    set { name = value; }
+  }
+
+or
+
+public string Name { get; set; }
+-------------------------------------------------------
+Fields = variables
+Properties = getters/setters variables
+-------------------------------------------------------
+Convert.ToInt32(Console.ReadLine());
+-------------------------------------------------------
+Arrays
+
+int[] a = new int[10];          // Creates an int array with 10 elements (default 0, so 0 to 9)
+int[] b = { 2, 3 };             // Implicitly sized array with 2 elements
+int[] c = new int[] { 2, 3 };   // Explicitly sized and initialized array
+
+for (int k = 0; k < a.Length; k++) 
+{
+    a[k] = k * 2;
+}
+
+foreach (int element in a) {
+    Console.WriteLine(element);
+}
+
+arr.Length — Total number of elements in the array (works for all arrays).
+arr.Rank — Number of dimensions of the array.
+arr.GetLength(dimension) — Length of the specified dimension (0-based index).
+-------------------------------------------------------
+This is multidimensional array. NOT Jagged Array (Arrays inside of an array). 
+Think of this like a table with row and column.
+
+int[ , ] someNums = { {2, 3}, {5, 6}, {4, 6} };
+
+someNums[2, 0] is first looking like this: 0 = {2, 3}, 1 = {5, 6}, 2 = {4, 6}
+Then the 0 in someNums[2, 0] is taking the 2 it has found 2 = {4, 6} and is looking for 0 element which is 4.
+
+How to loop with multidimensional array:
+
+int[ , ] someNums = { {2, 3}, {5, 6}, {4, 6} }; 
+for (int row = 0; row < someNums.GetLength(0); row++)  // rows
+{
+    for (int col = 0; col < someNums.GetLength(1); col++)  // columns
+    {
+        Console.Write(someNums[row, col] + " ");
+    }
+    Console.WriteLine();
+}
+-------------------------------------------------------
+String are actually objects in C#. because of this, the string object has a bunch of functions:
+NOTE each character is an element, INCLUDING SPACE.
+
+            string a = "some text";
+            
+	    Console.WriteLine(a.Length);
+            //Outputs 9
+
+            Console.WriteLine(a.IndexOf('t'));
+            //Outputs 5
+
+             a = a.Insert(0, "This is ");
+            Console.WriteLine(a);
+            //Outputs "This is some text"
+
+            a = a.Replace("This is", "I am");
+            Console.WriteLine(a);
+            //Outputs "I am some text"
+
+            if(a.Contains("some"))
+                Console.WriteLine("found");
+            //Outputs "found"
+
+            a = a.Remove(4);
+            Console.WriteLine(a);
+            //Outputs "I am"
+
+            a = a.Substring(2);
+            Console.WriteLine(a);
+            //Outputs "am"
+
+	    string a = "some text";
+            Console.WriteLine(a[2]);
+	    //Outputs m
+
+-------------------------------------------------------
+this.variable = x is used when that variable is NOT static. Mostly used during a function or
+constructor.Example:
+
+class Person 
+{
+  private string name;
+  public Person(string name) 
+  {
+    this.name = name;
+  }
+}
+-------------------------------------------------------
+If a class is NOT static but it has static variables/construtor/destructor/function then
+you can use Class.Variable or Class.Function(insert parameters if you have one)
+
+An entire class can be declared as static aswell.
+A static class can contain only static members.
+Example of this is the Console/Convert/Math/Array/String/DateTime class.
+-------------------------------------------------------
+this and readonly
+
+class Person 
+{
+  private readonly string name = "John"; 
+  public Person(string name) 
+  {
+    this.name = name; 
+  }
+}
+
+readonly string name; // OK
+const double PI; // Error because it needs to be initialized
+
+readonly double a = Math.Sin(60); // OK
+const double b = Math.Sin(60); // Error!
+
+Note you can use static readonly aswell. Like this: static readonly string name;
+-------------------------------------------------------
+Indexer
+
+class Clients 
+{
+	private string[] names = new string[10];
+	public string this[int index] 
+	{
+		get 
+		{
+                    return names[index];
+                }
+                set 
+		{
+                    names[index] = value;
+                }
+	}
+}
+        static void Main(string[] args)
+        {
+            Clients c = new Clients();
+            c[0] = "Dave";
+            c[1] = "Bob";
+            
+            Console.WriteLine(c[1]);
+        }
+-------------------------------------------------------
+Access modifiers
+
+public = Accessible from anywhere (any class, any assembly)
+private = Accessible only within the same class
+protected = Accessible within the same class and by derived (inherited) classes
+private protected = Accessible only within the same class or by derived classes in the same assembly
+
+internal = Accessible only within the same assembly (same .dll or .exe), but not from other assemblies
+protected internal = Accessible from any class in the same assembly OR from derived classes in other assemblies
+
+Note: To allow access across assemblies, you can use friend assemblies with [InternalsVisibleTo] attribute, 
+but that applies only to internal.
+-------------------------------------------------------
+Inheritance & Polymorphism & abstract
+
+With Inheritance when a new class inherits from a base class, 
+it gains access to the base class’s fields and methods (except for private members).
+The derived class can reuse, extend, or customize the base class functionality.
+
+With Polymorphism you work with the keyword: virtual for base functions and override for inherited functions. 
+You are still inheriting though but now you can define things differenly for different classes that inherits the
+same base class.
+
+In the base class, instead of using the keyword virtual you can instead use the keyword abstract.
+This means that you dont need a body for the function (end it with semicolon instead) and the derived class must 
+define it instead.
+
+If a base class has abstract methods, then the class must be abstract.
+But if a class is abstract, its methods do not have to be abstract.
+-------------------------------------------------------
+Interfaces
+
+All members of an interface are implicitly public and abstract — you don’t need to specify public or abstract.
+Interfaces cannot have private or protected members, only public.
+
+A class that implements an interface must define all of its members.
+Note: You do not use the override keyword when implementing interface methods.
+A class can implement multiple interfaces using a comma-separated list: class A: IShape, IAnimal, etc.
+
+public interface IShape 
+{
+	void Draw();
+}
+
+class Circle : IShape 
+{
+	public void Draw() 
+	{
+		Console.WriteLine("Circle Draw");
+	}
+}
+
+static void Main(string[] args)
+{
+	IShape c = new Circle();
+	c.Draw();
+}
+
+Note: If a derived class does not implement all interface members, it must be declared abstract.
+-------------------------------------------------------
+Structs are value types (stored on the stack by default).
+Structs do NOT support inheritance (they cannot inherit from another class or struct).
+Structs cannot contain virtual, abstract, or protected members.
+Structs cannot have a parameterless (default) constructor — even a user-defined one.
+Structs can have constructors with parameters, but you must use the new keyword to call them.
+Without a constructor, you can create a struct without new, but you must assign all fields before using it.
+
+struct Book 
+	{
+            public string title;  
+            public double price;
+            public string author;
+        }
+        static void Main(string[] args)
+        {
+            Book b;
+            b.title = "Test";
+            b.price = 5.99;
+            b.author = "David";
+            
+            Console.WriteLine(b.title);
+        }
+-------------------------------------------------------
+enums
+
+Enums are often used with switch statements.
+
+enum Days { Sun, Mon, Tue, Wed, Thu, Fri, Sat }; 
+        static void Main(string[] args)
+        {
+            int x = (int)Days.Tue;
+            Console.WriteLine(x);
+        }
+
+-------------------------------------------------------
+try - catch error function
+
+Exception handling is useful for handling unexpected errors, especially with user input or external resources.
+When catching multiple exceptions, catch more specific exceptions first, and then the general Exception last.
+
+The are different classes you can use: FileNotFoundException, FormatException, 
+IndexOutOfRangeException, InvalidOperationException, OutOfMemoryException.
+
+The finally block runs always, whether an exception occurs or not.
+Avoid referencing variables inside finally that might not be initialized (like result in your example).
+
+try
+{
+    int[] arr = new int[] { 4, 5, 8 };
+    Console.WriteLine(arr[8]);  // This will throw IndexOutOfRangeException
+}
+catch (DivideByZeroException e)
+{
+    Console.WriteLine("Cannot divide by zero");
+}
+catch (IndexOutOfRangeException e)
+{
+    Console.WriteLine("Index out of range error");
+}
+catch (Exception e)
+{
+    Console.WriteLine("An unexpected error occurred:");
+    Console.WriteLine(e.Message);
+}
+finally
+{
+    Console.WriteLine("Execution of try-catch block is complete.");
+}
+-------------------------------------------------------
+The code can work with files directly such as txt files.
+To access this you need System.IO namespace.
+The functions available to you are:
+
+File.WriteAllText("test.txt", str);
+File.ReadAllText("test.txt");
+File.AppendAllText() 
+File.Create()
+File.Delete()
+File.Exists() 
+File.Copy()
+File.Move()
+
+All methods automatically close the file after performing the operation.
+-------------------------------------------------------
+Generics functions
+
+	static void Swap<T>(ref T a, ref T b) 
+	{
+            T temp = a;
+            a = b;
+            b = temp;
+        }
+
+        static void Main(string[] args)
+        {
+            int a = 4, b = 9;
+            Swap<int>(ref a, ref b);
+            Console.WriteLine(a+" "+b);
+            
+            string x = "Hello";
+            string y = "World";
+            Swap<string>(ref x, ref y);
+            Console.WriteLine(x+" "+y);
+        }
+-------------------------------------------------------
+Generic class
+
+class Stack<T> 
+{
+  int index = 0;
+  T[] innerArray = new T[100];
+  public void Push(T item) { innerArray[index++] = item; }
+  public T Pop() { return innerArray[--index]; }
+  public T Get(int k) { return innerArray[k]; }
+}
+
+In Main 
+
+Stack<int> intStack = new Stack<int>();
+Stack<string> strStack = new Stack<string>();
+Stack<Person> PersonStack = new Stack<Person>();
+-------------------------------------------------------
+Collection = List (a dynamic version of Array)
+
+List = It’s a dynamic array — can grow or shrink as needed. it stores items in order, allows duplicates.
+Example: List<string> fruits = new List<string>();
+fruits.Add("Apple");
+fruits.Remove("Apple");
+
+SortedList = works the same way as a regular List but it is sorted by keys.
+Dublicate keys are not permitted.
+
+Dictionaries = A collection of key-value pairs.
+Example: Dictionary<string, int> ages = new Dictionary<string, int>();
+
+Queues = A collection that follows the First-In-First-Out (FIFO) principle.
+Example: 
+
+Queue<string> line = new Queue<string>();
+line.Enqueue("Customer 1");
+line.Dequeue("Customer 1");
+
+Stack<T> = A collection that follows the Last-In-First-Out (LIFO) principle.
+Example: 
+
+Stack<string> plates = new Stack<string>();
+plates.Push("Plate 1");
+plates.Pop("Plate 1");
+plates.Peek();  
+
+Hashsets = A collection of unique elements. It stores items in no particular order but ensures no duplicates.
+Example: HashSet<int> numbers = new HashSet<int>();
+
+-------------------------------------------------------
+When you want to sort a queue, convert it to a List, then use obj.Sort(), then add it back to the Queue.
+Example:
+
+Queue<int> q = new Queue<int>();
+List<int> sortedList = new List<int>(q);
+sortedList.Sort();
+Queue<int> sortedQ = new Queue<int>(sortedList);
+-------------------------------------------------------
+// Check if the discounted price is a whole number
+            if (discountedPrice % 1 == 0)
+            {
+                Console.WriteLine($"{item.Key}: {discountedPrice:0}");
+            }
+            else
+            {
+                Console.WriteLine($"{item.Key}: {discountedPrice:0.0}");
+            }

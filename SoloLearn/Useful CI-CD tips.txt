@@ -1,0 +1,82 @@
+-------------------------------------------------------
+-Strategy for CI/CD setup via Github Actions-
+
+Checkout code (get latest from repo and you commit)
+Check for linting (styling like semicolon etc, potencial errors, code quality like naming convension)
+Install python/C#
+Unit test
+Build/Package into a runnable application
+Build a Docker image
+-- Run a container from the image to test it
+-- Stop the container and remove the containers
+Login to Dockerhub
+Push the docker image to docker hub
+-------------------------------------------------------
+-Syntax-
+
+Where to learn syntax: 
+https://docs.github.com/actions/writing-workflows/workflow-syntax-for-github-actions
+https://docs.github.com/actions/using-workflows/events-that-trigger-workflows
+https://docs.github.com/actions/learn-github-actions/expressions
+
+Learn interactive syntax:
+https://github.com/skills/hello-github-actions
+
+name: = Its a name depending on the workflow, jobs, steps etc
+on: = Its an event to say trigger the cicd whenever you do X forexample when you push, pull, manual
+push: = Means when you push a commit
+branches: = Say on which branch
+jobs: = Groups of steps that run in the same environment. Each job runs independently unless linked with needs.
+runs-on: = On which os will this instance run on
+steps: Meaning waht the script will do in each step
+uses: = Runs a prebuilt GitHub Action from the Marketplace (e.g., actions/checkout@v3).
+with: = Passes input parameters to the action you’re using.
+run: = Runs a command
+context: = Refers to the variable namespaces used in expressions (e.g., github, env, secrets)
+dockerfile: = Name of the Dockerfile
+tags: = Tags from secret variables
+username: = Write your username from secret variables
+password: = Write you password from secret variables
+needs: = Makes a job wait until another job finishes successfully. Used for sequencing jobs.
+env: = Environment variables that can be used later in the workflow, job or step
+if: = Statements that lets you run jobs or steps conditionally
+-------------------------------------------------------
+-Terminology-
+
+Strategy = Defines how a job should be run, including matrix configurations and retry limits.
+It usually appears inside a job to tell GitHub Actions how to run variations of that job.
+Matrix = lets you run the same job multiple times with different combinations of variables 
+(e.g., OS versions, language versions, dependency versions) in parallel.
+Jobs = A collection of steps that run in the same runner (virtual machine, container, or self-hosted server).
+
+When you're using multiple steps, use - symbol
+When you're using multiple commands in a step or run, use | symbol
+
+Multiple jobs can run either in parallel or once one job is done the other can begin.
+-------------------------------------------------------
+-Good info-
+
+In your project folder, you need a folder called .github 
+and inside it another folder called workflows. Inside it create a
+.yml file. This is what gihub actions reads.
+
+Look into vs code extention for github actions so that you get syntax highlighting or intellisense/autocompletion
+
+Useful websites for actions: https://github.com/marketplace?type=actions
+actions/checkout@v3
+docker/build-push-action@v2
+docker/login-action@v1
+
+mvn -B test --file YOURFILE.FORMAT
+mvn -B package --file YOURFILE.FORMAT
+mvn clean
+
+To see if the CICD is working, go to github.com > you repo > Actions.
+There you can see your pushes and you can see it running each time you push
+
+To see the secrets , go to github.com > you repo > Settings > Secrets and variables > Actions.
+In the .yml file, to read those variables, use ${{ secrets.MY_VARIABLE }}
+
+echo "DATE_TAG=$(date +'%y_%m_%d')" >> $GITHUB_ENV
+${{ secrets.MY_VARIABLE }}/REPO_NAME:$DATE_TAG .
+-------------------------------------------------------

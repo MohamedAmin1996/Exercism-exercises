@@ -1,0 +1,190 @@
+-------------------------------------------------------
+Databases = collection of tables
+Tables = basically a excel file with lots of info
+Columns = defines the name and data type of one field in the table. (like INT, VARCHAR, DATE, etc.)
+Rows = a single record
+Field = a cell in a excel file
+Type = INT, FLOAT, DOUBLE, CHAR, VARCHAR, BLOB, TEXT, DATE, DATETIME, TIMESTAMP, TIME etc.
+Key = There are many keys such as Primary Key, Foreign Key, Unique Key, Index 
+Default = default value assigned to the column
+String Contatenation operator = ||
+To comment = --
+-------------------------------------------------------
+With SQL (Structured Query Language), you can:
+
+Create and delete/Drop tables/databases
+
+Insert, update, and delete rows
+
+Query data (e.g., SELECT * FROM users WHERE name = 'Bob')
+
+Join tables together to get combined data
+
+Apply filters, sorting, and grouping
+-------------------------------------------------------
+-Syntax-
+
+Each command must end with ; similar to C#
+SQL is case insensitive. But it is recommended to write the command in uppercase.
+If you use keywords like LIMIT, OFFSET etc then index starts from 1 and not 0.
+Fully qualified name = SELECT customers.City FROM customers (customer is table and city is a column)
+ORDER BY keyword sorts the results in ascending order.
+When working with string (actually VARCHAR) you have to use ' instead of "
+You can use arithmetic operators.
+Subqueries is part of a query and is in a parentheses.
+-------------------------------------------------------
+- SQL Commands-
+
+- SHOW "DATABASES" = Lists the databases managed by the server.
+- SHOW "TABLES" = Display all of the tables in the currently selected MySQL database.
+- SHOW "COLUMNS" = Displays information about the columns in a given table.
+- SELECT "column_list" = Selects a column name.
+- FROM "table_name" = Usually combined with the previous command and this tells which table to use.
+- SELECT * = Selects all columns in a table. The asterisk means all.
+- SELECT DISTINCT "City" = Collects only unique city names and not duplicate.
+- FROM "customers" LIMIT "5" = The limit say that we only want to collect the first 5 rows/record.
+- FROM "customers" OFFSET "3" LIMIT "4" = Offset is offsetting where it will start.
+- ORDER BY "FirstName" = Sorts the tables based on the chosen column.
+ - ASC and DESC means ascending and decending order which you write last in the order by command.
+
+- WHERE ID = "7" = Where command is a condition and it is only getting the row that has id row 7.
+ - There are operators that you can use = != > < >= <= BETWEEN (between is a range between two numbers)
+ - You are also using logical operators AND OR IN NOT alongside operator. 
+ - If you use multiple logical operators, use a parentheses like this 
+   WHERE City = 'New York' AND (Age=30 OR Age=35);
+ - If you use the IN operator here is an example WHERE City IN ('New York', 'Los Angeles', 'Chicago');
+
+- CASE
+	WHEN age >= 65 THEN 'Senior'
+	WHEN age >= 25 AND age < 65 THEN 'Adult'
+	ELSE 'Youth'
+  END AS category = This is like a switch statement.
+
+- SELECT CONCAT(FirstName, ', ' , City) FROM customers = Combining the firstName and City, separated by comma
+- SELECT CONCAT(FirstName,', ', City) AS new_column = AS command will create a new column.
+ - If new_column already exist in the table, the data in the new_column  will be replaced.
+
+- WHERE FirstName LIKE 'A%' = A% is saying get all first names that starts with A. %A mean that ends with A. CaseSensistive.
+  If you use ILIKE then it is not case sensitive.
+
+- FROM customers AS "ct", orders AS "ord" = AS gets to rename the tables for this query context.
+- FROM table1 INNER JOIN table2 ON "table1.column_name" = "table2.column_name" = 
+  The ON keyword is used for specifying the inner join condition.
+- FROM "table1" LEFT OUTER JOIN "table2" = LEFT OUTER JOIN is getting the first table.
+- FROM table1 RIGHT OUTER JOIN table2 = same as the left one but focuses on right aka table 2.
+
+- UNION = Combines multiple datasets into a single dataset, and removes any existing duplicates.
+- UNION ALL = Combines multiple datasets into one dataset, but does not remove duplicate rows.
+
+- INSERT INTO table_name VALUES (value1, value2, value3,...) = inserts values into a new row into a table.
+- INSERT INTO table_name (column1, column2, column3, ...,columnN)  = you can insert into specific columns.
+
+- UPDATE table_name SET column1=value1, column2=value2, ... WHERE condition = 
+  Updating specific column in a table depending on the condition.
+- DELETE FROM table_name WHERE condition = Used to remove data from your table.
+
+- CREATE TABLE table_name = creates a new table with new columns and datatype for each data.
+(
+column_name1 data_type(size),
+column_name2 data_type(size),
+PRIMARY KEY(UserID)
+FOREIGN KEY (customer_id) REFERENCES Customers(id)
+);
+
+ALTER TABLE People ADD DateOfBirth date = Alters existing table and adding a new row here with a datatype.
+DROP COLUMN DateOfBirth = remvoes an entire column from a table.
+RENAME FirstName TO name = Renames a column.
+
+NOT NULL - Indicates that a column cannot contain any NULL value.
+
+UNIQUE - Does not allow to insert a duplicate value in a column. 
+
+The UNIQUE constraint maintains the uniqueness of a column in a table. 
+More than one UNIQUE column can be used in a table.
+
+PRIMARY KEY - Enforces the table to accept unique data for a specific column and 
+this constraint create a unique index for accessing the table faster.
+
+CHECK - Determines whether the value is valid or not from a logical expression.
+
+DEFAULT - While inserting data into a table, if no value is supplied to a column, 
+then the column gets the value set as DEFAULT.
+
+AUTO_INCREMENT - allows a unique number to be generated when a new record is inserted into a table.
+
+- CREATE VIEW view_name AS SELECT FirstName, Salary
+  FROM  Employees = creates a table. It restrict access to the data in such a way that a 
+  user can see and (sometimes) modify exactly what they need and no more. It also show up to date
+  data.
+
+- CREATE OR REPLACE VIEW List AS = Updating a view.
+- DROP VIEW List = deleting a view
+
+- Function::DATE = Casting into a DATE datatype
+- NOW() + INTERVAL '10 DAYS' = Prints out now + 10 days from current 
+
+- ON CONFLICT (column) DO NOTHING = This handles when an exception happend. It says to do nothing
+- ON CONFLICT (column) DO UPDATE SET column = EXCLUDED.column = This handles when an exception happend. It updates the 
+  specific column to use the new value.
+
+- ALTER SEQUENCE table_id_seq RESTART WITH 10 = Primary keys by default adds a kew number for each row.
+  But if the id number order is wrong, use this.
+-------------------------------------------------------
+-Functions-
+
+CONCAT()
+UPPER()
+LOWER()
+SQRT()
+AVG()
+SUM()
+MIN()
+SUBSTRING()
+REPLACE()
+COUNT()
+-------------------------------------------------------
+-psql commands-
+
+To start psql from Windows terminal (LINUX): 
+First: wsl
+Second: sudo service postgresql start
+Third: sudo -i -u postgres psql
+
+\? = gives helps about all the commands that is available 
+\! cls = cleans the terminal
+
+Q = looks like you're going back to before you enter your last prompt
+\pset pager = To turn the pager on so that you can click Q to go back
+\x = Expanded display is ON
+
+\l = gives a list of databases
+\c your_database = connect to a database
+\d = gives a list of relations inside a database
+\dt = gives a list of tables inside a database
+\d tablename = Gives you the content of that table aka column name, datatype, constraint
+
+https://www.mockaroo.com/
+\i /scripts/Person.sql = Executes commands from file. (/mnt/c/... if it is linux)
+-------------------------------------------------------
+-psql via docker-
+
+Pull the postgres image:	docker pull postgres
+
+Create a volume:		docker volume create psqldata
+Run the Postgres container:	docker run --name my_postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=db -v psqldata:/var/lib/postgresql/data -p 5432:5432 -d postgres (e means Environment variable, d mean detached mode)
+Enter the container:		docker exec -it my_postgres bash (-it means interactive mode, bash means)
+Enter the postgres session:	psql -U postgres -d db
+
+Copy files from windows path to container path:	
+docker cp "C:\Users\aminb\Downloads\Person.sql" my_postgres:/scripts/Person.sql
+
+From Docker create a folder inside the container: 
+docker exec my_postgres mkdir -p /scripts
+
+Exit the postgres session: 	\q
+Exit the container:		exit
+Stop running the container:	docker stop my_postgres
+Delete the container: 		docker rm my_postgres
+Delete the volume: 		docker volume rm psqldata
+
+Remove image:			docker rmi postgres:latest (image:tag) OR docker rmi imageID (rmi means remove image)

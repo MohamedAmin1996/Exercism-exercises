@@ -1,0 +1,98 @@
+-------------------------------------------------------
+-Useful Controls-
+
+To copy a text = select the text via mouse and it copies automatically
+To paste = Middle Mouse Click
+To write @ = First you have to go to option > keys > Activate "Ctrl+LeftALT is AltGr"
+-------------------------------------------------------
+-Setup git and clone a repo (first time) to local machine-
+
+git config --global user.name "Your GitHub Username" = setup the username
+git config --global user.email "your_email@example.com" = setup the email
+
+clip < ~/.ssh/id_ed25519.pub = Copies the SSH key
+ssh -T git@github.com = Test run to make usre you are connected
+
+git clone git@github.com:USERNAME/REPO.git = This is how you clone a project 
+(Note: open gitbash from the right folder then do the command)
+
+git status = to see all changes
+git add file.fileformat or git add . = Moves the files from unstaged to staged
+git commit -m "blah" = Make a commit with some text
+git commit = Make a commit and VSCODE opens, here you can write your commit if the text is long
+git push = you push to your repo
+-------------------------------------------------------
+-Commands-
+
+General Help = git help
+Detailed Help = git help commit
+
+Fetch = git fetch
+Pull = git pull 
+Push = git push origin main
+
+To see local changes (unstaged and staged) = git status OR git status -s
+To see local changes (unstaged) = git diff
+To see local changes (staged) = git diff --cached
+
+To stage a file = git add file1 file 2 etc
+To stage all files = git add .
+
+To unstage a file = git restore --staged file1 file2 etc
+To unstage all files = git restore --staged .
+
+Discard unstaged local changed file (DESTRUCTIVE) = git restore file.txt
+Delete untracked files and folders (DESTRUCTIVE) = git clean -fd
+
+Commit = git commit -m "name of this commit" OR git commit
+Uncommit the last commit, keeping the changes as staged (DESTRUCTIVE) = git reset HEAD~1
+Resets everything to the last commit, discarding all changes (DESTRUCTIVE) = git reset --hard
+
+To see all the commits = git log or git log --oneline --graph --all
+To see all of the commits that I've made (LOCAL) = git log HEAD..origin/main
+To see the content of a specific commit = git show <commit_hash>
+
+Stash = git stash
+Unstash the stash = git stash pop
+Pop/remove the stash = git stash pop OR git stash apply stash@{0}
+To see all stash list = git stash list
+
+Compare commit = git diff origin/main..HEAD YourLocalcommit OR <commit1> <commit2>
+
+Chechout commit = git checkout <commit_hash>
+Return to main branch = git checkout main
+
+Current branch = git branch
+List of all local branches = git branch -a
+List of all remote branches = git branch -r
+Create a branch = git branch myBranch
+Create and switch to the new branch = git checkout -b myBranch
+Switch branches = git switch new-branch
+
+Merge a branch to your branch = git merge branchname
+Re-applies your current commits on top of branchname (Rebase) = git rebase branchname
+
+Shows the remote URLs linked to your repo = git remote -v
+Adds a remote repository (usually origin) = git remote add origin <url>
+git init = initialize a repository in a folder
+rm -rf .git = removes the repository
+git branch -M main = rename main branch to "main"
+-------------------------------------------------------
+-Useful unix/windows commands-
+
+mkdir "foldername" = create a folder
+
+cd "folder" = go to that folder (from current folder, the chosen folder must be there)
+cd .. = go backward
+cd ../.. = go backward two steps
+cd /d/SomeFolder = go the specific path
+cd ~ = Takes you to home directory
+
+ls = Lists all visible files and folders in the current directory.
+ls -a = Lists all files, including hidden files
+explorer "folder" = opens the folder in file explorer (from current folder, the chosen folder must be there)
+
+echo hello > file1.txt = Creates (or overwrites) file1.txt with the text hello
+echo hello >> file1.txt = Appends file1.txt with the text hello
+
+install posh-git alongside git

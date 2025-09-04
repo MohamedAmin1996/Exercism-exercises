@@ -1,0 +1,32 @@
+EXERCISM COMMANDS
+
+-Replace workspace path-
+
+exercism configure --workspace /path/to/your/preferred/directory
+
+Replace /path/to/your/preferred/directory with your preferred folder path.
+
+-Download exercise-
+
+exercism download --track=csharp --exercise=lucians-luscious-lasagna
+
+Note: Each exercise has a path you can copy
+
+-Instructions-
+
+Each exercise has a README file that explains what you should do.
+
+You also have a Help.md that shows you how to submit an exercise, how to run unit tests, etc.
+
+You also have a Hints.md that gives you hints on how to solve the exercise.
+
+
+-Run the testunit CI/CD-
+
+Run the test by going to the Test Explorer and click or CTRL+R+A
+
+-Submit exercise-
+
+exercism submit filename.cs
+
+-------------------------------------

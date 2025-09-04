@@ -1,0 +1,619 @@
+-------------------------------------------------------
+-To make a standalone exe-
+
+Install pyinstaller:					pip install pyinstaller
+Build (only python files):				pyinstaller --onefile main.py
+Build (python files and other files like config, text):	pyinstaller --onefile main.py --add-data "config.py;T.txt;"
+-------------------------------------------------------
+# this is a comment in Python for one line
+
+"""
+    This is a multi-line 
+    string.
+"""
+-------------------------------------------------------
+\n = newline
+
+\t = tab
+
+\' = single quote inside a string
+\" = double quote inside a string
+
+"""
+
+This is a multiline string
+
+"""
+
+5**2 = 5 raised by the power of 2
+
+5//2 = will result in 2 instead of 2 instead of 2.5 beacause it floors the decimal.
+
+-------------------------------------------------------
+One problem visual studio intellisense have in python is that it does not know
+what datatype the parameter is. So to help it do it like this:
+
+parameter:str
+parameter:int
+parameter:float
+parameter:bool
+parameter:bytes
+
+-------------------------------------------------------
+input() - same thing as Console.Readline in C#
+print() - same thing as Console.WriteLine in C#
+-------------------------------------------------------
+int(input()) - input gets converted to int. By default it is a string
+str(age) - Converts a number to a string
+float(age) - Converts a number to a float
+-------------------------------------------------------
+In python, true and false is called True and False (Python is case sensitive)
+-------------------------------------------------------
+If and else if statements:
+
+if x > 5:
+    print("x is greater than 5")
+    if x > 10:
+        print("x is greater than 10")
+elif x == 2:
+    print("Two")
+else:
+    print("No")
+-------------------------------------------------------
+using AND OR NOT operators in if statements
+
+1 == 1 and 2 == 2 
+1 == 1 or 2 == 2
+not 1 == 1
+-------------------------------------------------------
+while loops
+Note: You can use break keyword to exit the loop or continue keyword to skip on iteration
+
+i = 1
+while i <=5:
+    print(i)
+    i = i + 1
+-------------------------------------------------------
+List in this case means array
+
+Note: List use square brackets []
+Note: .sorted() returns a sorted copy without modifying the original list
+
+words = ["Hello", "world", "!"]
+print(words[0])  # Output: Hello
+
+You can also do multidimentional arrays:
+
+m = [ [1, 2, 3], [4, 5, 6] ]
+    
+print(m[1][2]) # Output: 6 (2nd list, 3rd item)
+
+print(len(words)) // it return the length of the list
+
+SomeList[-1] means the last element, -2 means second to last, -3 third to last etc
+-------------------------------------------------------
+Use the in keyword in a list to see if it contains that specific element
+
+words = ["spam", "egg", "spam", "sausage"]
+print("spam" in words)
+-------------------------------------------------------
+for loops (looks like a foreach loop)
+
+words = ["hello", "world", "spam", "eggs"]
+for word in words:
+  print(word + "!")
+
+regular for loop look like this:
+
+for i in range(5):
+    print(i)
+-------------------------------------------------------
+range()
+
+Note: The end element is not included, its the last chosen element minus 1 element
+
+numbers = list(range(10))  
+print(numbers)  # Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+numbers = list(range(2, 10))  
+print(numbers)  # Output: [2, 3, 4, 5, 6, 7, 8, 9]
+
+numbers = list(range(5, 20, 2))  
+print(numbers)  # Output: [5, 7, 9, 11, 13, 15, 17, 19]
+
+numbers = list(range(20, 5, -2))  
+print(numbers)  # Output: [20, 18, 16, 14, 12, 10, 8, 6]
+-------------------------------------------------------
+List slices
+
+Note: if the third parameter is negative, it will step in reverse. [::-1] 
+
+squares = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+print(squares[2:6])   # Output: [4, 9, 16, 25]
+print(squares[:7])    # Output: [0, 1, 4, 9, 16, 25, 36]
+print(squares[7:])    # Output: [49, 64, 81]
+print(squares[::2])   # Output: [0, 4, 16, 36, 64]
+print(squares[2:8:3]) # Output: [4, 25]
+
+# Reverse the list using negative step
+print(squares[::-1])  # Output: [81, 64, 49, 36, 25, 16, 9, 4, 1, 0]
+-------------------------------------------------------
+nums = [1, 2, 3]
+nums.append(4) # Outputs [1, 2, 3, 4]
+
+words = ["Python", "fun"]
+index = 1
+words.insert(index, "is") // ["Python", "is", "fun"]
+
+letters = ['p', 'q', 'r', 's', 'p', 'u']
+print(letters.index('r')) # Outputs the position of r
+
+max(list): Returns the maximum value.
+min(list): Returns the minimum value.
+list.count(item): Returns a count of how many times an item occurs in a list.
+list.remove(item): Removes an item from a list.
+list.reverse(): Reverses items in a list.
+-------------------------------------------------------
+String formatting
+
+nums = [4, 5, 6]
+msg = "Numbers: {0} {1} {2}". format(nums[0], nums[1], nums[2])
+
+In python 3.6 and above, this is cleaner:
+
+f"Numbers: {nums[0]} {nums[1]} {nums[2]}"
+-------------------------------------------------------
+String functions
+
+print(", ".join(["spam", "eggs", "ham"]))
+#prints "spam, eggs, ham"
+
+print("Hello ME".replace("ME", "world"))
+#prints "Hello world"
+
+print("This is a sentence.".startswith("This"))
+# prints "True"
+
+print("This is a sentence.".endswith("sentence."))
+# prints "True"
+
+print("This is a sentence.".upper())
+# prints "THIS IS A SENTENCE."
+
+print("AN ALL CAPS SENTENCE".lower())
+#prints "an all caps sentence"
+
+print("spam, eggs, ham".split(", "))
+#prints "['spam', 'eggs', 'ham']"
+-------------------------------------------------------
+Functions
+
+def my_func(): // has no argument
+   print("spam")
+   print("spam")
+   print("spam")
+
+my_func()
+
+---
+
+def print_with_exclamation(word): // has the argument word and you can have multiple arguments
+   print(word + "!")
+    
+print_with_exclamation("spam")
+print_with_exclamation("eggs")
+print_with_exclamation("python")
+
+---
+
+you can return inside the function
+
+def max(x, y):
+    if x >=y:
+        return x
+    else:
+        return y
+---
+def greet(name, age=18):
+    print(f"Hello, {name}! You are {age} years old.")
+
+greet("Bob")        # age defaults to 18
+greet("Charlie", 25)
+---
+def greet(name, age):
+    print(f"Hello, {name}! You are {age} years old.")
+
+greet(age=22, name="Diana")
+-------------------------------------------------------
+Tuplets
+
+Note: Tuples use parentheses () instead of square brackets []
+Note: Tuples are immutable meaning unchangable
+Note: You CANNOT use methods like .append() on tuples
+Note: You can use methods like .count() to see the number of 
+occurrences of an item in a tuple.
+
+b_date = (21, "May", 2004)
+print(b_date[1])
+
+day, month, year = b_date // unpacking the tuplet
+day, *rest = b_date // unpacking the tuplet and month and year is put on rest because of the *
+-------------------------------------------------------
+Sets
+
+Note: Sets use brackets {} instead of parentheses ()
+Note: To create an empty set, use set()
+Note: Gives unique elements. Sets are unordered and don't support indexing or slicing.
+Note: You cannot use append() like lists.
+Note: Instead use .add() or .remove() or .discard() functions. 
+Note: To combine different sets, use .union() | or .difference() - function.
+
+guests = {"Mery", "Anna", "Jonathan"}
+print(guests)
+-------------------------------------------------------
+Dictionaries
+
+Note: Dictionaries use curly brackets {} instead of parentheses ()
+Note: They store key:value pairs.
+Note: Keys must be unique, but values can be duplicated.
+Note: .keys() return the keys only
+Note: .values() return the values only
+Note: .items() return the key:value pairs
+product = 
+{
+  "name": "pen",
+  "color": "red",
+  "price": 79
+}
+
+print(product) // prints all
+print(product["name"]) // prints  only name
+
+info = product.get("name")        # Gets value for key "name" -> "pen"
+
+keys = product.keys()             # Returns all keys: dict_keys(['name', 'color', 'price'])
+values = product.values()         # Returns all values: dict_values(['pen', 'red', 79])
+items = product.items()           # Returns all key:value pairs as tuples
+
+# Updating dictionary with new key:value pairs
+product.update({"price": 89, "brand": "Pilot"})
+print(product)  # {'name': 'pen', 'color': 'red', 'price': 89, 'brand': 'Pilot'}
+
+# Removing a key:value pair by key
+product.pop("color")
+print(product)  # {'name': 'pen', 'price': 89, 'brand': 'Pilot'}
+
+# Check if key exists in dictionary
+print("color" in product)  # False
+print("price" in product)  # True
+-------------------------------------------------------
+list comprehensions
+
+nums = [x for x in range(1, 51)]
+# Creates a list of numbers from 1 to 50 inclusive
+
+[x * 2 for x in range(10)]
+# Creates a list of numbers 0, 2, 4, ..., 18 (each element doubled)
+
+tags = ["python", "code", "fun"]
+["#" + x for x in tags]
+# Creates ['#python', '#code', '#fun'], adding "#" prefix to each tag
+
+users = ["Bob", "Alice", "Bill", "Eve"]
+[x for x in users if x[0] == "B"]
+# Creates a list of users whose name starts with "B" → ['Bob', 'Bill']
+-------------------------------------------------------
+try and except
+
+prices = [250, 300, "240", 400]
+
+try:
+    # Code that might raise exceptions
+    total = sum(prices)   # This will cause a TypeError because "240" is a string
+    print(total)
+except TypeError:
+    print("Invalid data type encountered!")
+except IndexError:
+    print("Index out of range!")
+except NameError:
+    print("Variable is not defined!")
+except Exception:
+    print("An unexpected error occurred!")
+else:
+    # Runs only if no exceptions occur in the try block
+    count = len(prices)
+    print("Count of products:", count)
+finally:
+    # Always runs no matter what
+    print("Need help? Contact us")
+
+print("Happy Shopping")
+
+if rate > 10 or rate < 0:
+  raise ValueError("Rate from 0 to 10")
+-------------------------------------------------------
+Lambda
+
+def greet(name, blank):
+ return "Welcome, " + name + blank
+
+greet("Amin")
+
+lambda version
+
+greet = lambda name, blank: "Welcome, " + name + blank
+
+greet("Amin")
+
+or 
+
+res = (lambda x, y: x + y) (2, 3)
+print(res)
+-------------------------------------------------------
+Map
+
+#List of names in various cases
+names = ["alice", "bob", "CHARLIE", "dEborah"]
+
+# Function to capitalize each name
+def capitalize(name):
+  return name.capitalize()
+
+# Using map() to apply the capitalization to each name
+capitalized = map(capitalize, names) // takes function and list as a parameter
+
+# Converting map object to a list
+capitalized = list(capitalized)
+
+print(capitalized)
+
+--lambda version 
+
+numbers = [1, 2, 3]
+doubled = list(map(lambda x: x*2, numbers))
+
+--Filter function
+
+filtered_prod = list(filter(lambda name: len(name) == 4, products))
+
+print(filtered_prod) // prints out only those element where the characters is equal to 4
+
+--Dictionary version of filtering
+
+products = {'Table': 110, 'Sofa': 120, 'Chair': 45, 'Lamp': 70}
+
+#filtering products with prices less than 90
+filtered_products = dict(filter(lambda item: item[1] < 90, products.items()))
+
+print(filtered_products)
+-------------------------------------------------------
+*args and **kwarg
+
+Note: arg1 must come before *args
+
+Note: *args allows you to provide any number of arguments without the need to 
+create a list before calling the function each time. It returns a tuple.
+
+Note: **Kwarg is returning a dictionary.
+
+def total(arg1, *args, **kwargs):
+    result = arg1
+    print(f"arg1: {arg1}")
+    
+    # Summing additional positional arguments
+    for arg in args:
+        result += arg
+    
+    # Printing keyword arguments
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+    
+    return result
+
+print(total(1, 2, 3, 4, 5))  
+# Output:
+# arg1: 1
+# 15
+
+print(total(1, 2, 3, 4, 5, 6, 7))  
+# Output:
+# arg1: 1
+# 28
+
+print(total(1, 2, 3))  
+# Output:
+# arg1: 1
+# 6
+
+print(total(1, 2, 3, name="Alice", age=30))  
+# Output:
+# arg1: 1
+# name: Alice
+# age: 30
+# 6
+-------------------------------------------------------
+Decorations
+
+def uppercase(func):
+    def wrapper():
+        orig_message = func()
+        modified_message = orig_message.upper()
+        return modified_message
+    return wrapper
+
+@uppercase
+def greet():
+    return "Welcome!"
+
+# Using the decorated function
+print(greet())
+-------------------------------------------------------
+Class
+
+Note: Functions can be called on their own like print():
+Methods are defined inside a class that operate on instances. like my_cat.yell():
+
+class Car:
+  # Initialize attributes
+  def __init__(self, brand, color):
+    # Assign values to attributes
+    self.brand = brand
+    self.color = color
+  def honk(self):
+    print("Beep beep!")
+
+# Create an object of the Car class
+my_car = Car('Audi', 'yellow')
+
+print(my_car.brand)
+my_car.honk()
+-------------------------------------------------------
+Inheritance
+
+# Parent class
+class Animal:
+  def __init__(self, name):
+    self.name = name
+
+  # Generic sound method for any animal
+  def sound(self):
+    print("Making a sound")
+
+# Child class Dog
+class Dog(Animal):
+  def __init__(self, name, breed, age):
+    super().__init__(name)
+    self.breed = breed
+    self.age = age
+  
+  # Overridden sound method for Dog
+  def sound(self):
+    print("Woof!")
+
+# Child class Cat
+class Cat(Animal):
+  def __init__(self, name, breed, age):
+    super().__init__(name)
+    self.breed = breed
+    self.age = age
+
+  # Overridden sound method for Cat
+  def sound(self):
+    print("Meow!")
+
+# Creating instances
+my_dog = Dog("Jax", "Bulldog", 5)
+my_cat = Cat("Lily", "Ragdoll", 2)
+
+# Using overridden methods
+my_dog.sound()
+my_cat.sound()
+-------------------------------------------------------
+self._odometer = odometer  
+The _ part means that the variable is a protected or internal use attribute
+Note: this is just for convention sake, it not an actually protected like it is in C#
+
+If you use double underscore like this __ then it is considered private
+Note: In this case unlike protected, it is private like it is in C#. But you can get around it like this
+my_car._Car__odometer (instance._class_privateVariable) but this is not recommended.
+
+You can make both variables and functions protected and private
+-------------------------------------------------------
+Getter and Setters
+
+class Car:
+    def __init__(self, odometer):
+        self.__odometer = odometer  # Private attribute
+
+    # Getter method to access __odometer
+    @property
+    def odometer(self):
+        return self.__odometer
+
+    # Setter method to control changes to __odometer
+    @odometer.setter
+    def odometer(self, value):
+        if value >= self.__odometer:
+            self.__odometer = value
+        else:
+            print("You cannot roll back the odometer!")
+
+# Usage:
+my_car = Car(10000)
+print(my_car.odometer)   # Accesses getter: prints 10000
+
+my_car.odometer = 15000  # Uses setter to update value
+print(my_car.odometer)   # prints 15000
+
+my_car.odometer = 9000   # Tries to roll back — setter blocks it
+# Output: You cannot roll back the odometer!
+print(my_car.odometer)   # Still prints 15000
+
+-------------------------------------------------------
+static classes
+
+class Book:
+  def __init__(self, title, author):
+    self.title = title
+    self.author = author
+
+  #class method
+  @classmethod
+  def books_in_series_a(cls, series_name, number_of_books):
+    print('There are', number_of_books, 'books in the', series_name, 'series')
+
+  #staticmethod
+  @staticmethod
+  def books_in_series_b(series_name, number_of_books):
+    print('There are', number_of_books, 'books in the', series_name, 'series')
+
+
+Book.books_in_series_a("Harry Potter", 7)
+Book.books_in_series_b("Harry Potter", 7)'
+-------------------------------------------------------
+Import a module - same thing as using 
+
+import math
+
+print(math.sqrt(16))  # 4.0
+print(math.pi)        # 3.141592653589793
+
+or you can also do this to import specific functions from a module:
+
+from math import sqrt, pi
+
+print(sqrt(25))  # 5.0
+print(pi)        # 3.141592653589793
+
+import numpy as np - renaming the module as np for this specific .py file
+
+arr = np.array([1, 2, 3])
+print(arr)
+-------------------------------------------------------
+Python package
+
+A package is a folder that contains a special file called __init__.py 
+and can hold multiple modules or subpackages.
+
+Folder structure:
+
+mypackage/
+    __init__.py
+    module1.py
+    module2.py
+
+In python: 
+
+from mypackage import module1
+module1.some_function()
+
+Useful built-in modules to try:
+
+os — operating system interactions (files, directories)
+sys — system-specific parameters and functions
+random — generate random numbers
+datetime — work with dates and times
+json — read/write JSON data
+collections — special container datatypes like Counter, defaultdict
+itertools — tools for efficient looping

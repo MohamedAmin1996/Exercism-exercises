@@ -1,0 +1,129 @@
+-------------------------------------------------------
+-General info-
+
+container = isolated container which uses the host OS kernel. 
+This make the containers faster to run since it is not as resource 
+heavy as a Virtual machine
+
+When creating the docker file inside your application project, make sure it is 
+spelled "Dockerfile"
+
+Install VS Code extention for docker!!
+
+If you have a project > backend, frontend, database folders, at the top of the project
+there should be a docker-compose.yml file. 
+
+Generally backend, frontend, database have their own dockerfiles with its own instructions 
+to create separate dockerimages. Then you use docker compose to create containers that activate all the images
+in one step.
+
+if you want data in a container to be persistent, use volume
+-------------------------------------------------------
+-Docker Commands-
+
+docker build -t myapp:1.0 . = It is building a docker image with the tag 
+myapp:1.0 which is the version. The dot is looking for the dockerfile in the current directory.
+
+docker images or docker image ls = Find all images on the host computer.
+docker image rm "" = removes a specific image
+
+docker run image_name = runs the dockerimage
+docker run -it image_name = starts a container in interactive mode
+
+docker pull ACCOUNT/REPO = pulling the dockerimage
+
+docker ps = Shows all containers (running)
+docker ps -a = Shows all containers (running + stopped)
+
+docker network ls = list of networks that are active
+
+docker create = creates a container (but does not start it)
+
+docker start = starts an existing container
+
+docker stop = stops a running container
+
+docker rm = removes a stopped container
+
+docker exec -it container_name bash = get an interactive shell inside a running container.
+
+docker logs container_name = view logs from a container.
+
+docker stats = live CPU/memory/network stats for containers.
+
+docker stop $(docker ps -q) = stop all running containers at once.
+
+docker rm $(docker ps -aq) = remove all containers (be careful).
+
+docker rmi image_name = remove an image.
+-------------------------------------------------------
+-Docker Compose Commands-
+
+docker-compose --help = useful for looking up commands that you want to use
+
+docker-compose up = starts up docker compose
+docker-compose down = stops docker compose
+
+docker-compose up --build = it builds multiple dockerimages at once. Though it is cached
+docker-compose up --build --no-cache = it builds multiple dockerimages at once. 
+
+docker-compose ps = containers that are currently running
+
+docker-compose logs -f = follow logs for all services in real time.
+
+docker-compose restart = restart all services.
+
+docker-compose exec service_name bash = shell into a specific service.
+
+docker-compose down -v = stops services and removes volumes too (good for resetting databases during dev).
+
+docker-compose pull = pull latest images defined in docker-compose.yml (if using remote images).
+-------------------------------------------------------
+-Dockerfile syntax-
+
+FROM image:alpine = Use a base image to expand upon similar to inheritance in coding
+COPY from to = Copy files from A to B
+CMD = execute a command
+WORKDIR = Sets the working directory for subsequent commands.
+
+.dockerignore = like gitignore you can ignore certain files or content from a folder
+-------------------------------------------------------
+-Docker-Compose file syntax-
+
+version = docker compose version to use
+services = add you list here like frontend, backend, database
+build = where to find the docker image so that it can build
+image = where to read image from
+ports = port it listens from
+environment = Sets environment variables for a container
+volumes = container has a volume, useful for databases that need data to be persistent
+depends_on = defines service startup order: db
+env_file = load environment variables from a file:env_file: .env
+-------------------------------------------------------
+-Linux Commands- (Case sensitive)
+
+echo hello = says hello back
+whoami = responds with who you are, a root or a regular user etc
+history = shows all the commands that has been executed from the bottom being the latest
+pwd = Show where you are in the directory
+cd test = navigates to the folder test
+cd .. = navigates back one step
+cd ../.. = navigates back two steps
+ls = list the content within like folder and files
+
+-------------------------------------------------------
+-Windows Commands-
+
+docker version
+docker-compose --version
+
+mkdir test = creates a folder called test from a directory
+cd test = navigates to the folder test
+cd .. = navigates back one step
+cd ../.. = navigates back two steps
+
+ALT + ENTER = maximize the screen
+-------------------------------------------------------
+-Link-
+
+To practice: https://labs.play-with-docker.com/
