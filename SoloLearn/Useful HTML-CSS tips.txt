@@ -1,0 +1,228 @@
+-------------------------------------------------------
+-About HTML-
+
+HTML elements and attributes are case insenstivitve (similar to SQL)
+but value are case sensitive.
+URL can be enclosed using "" or ''
+HTML collapses consecutive spaces and newlines in normal text nodes.
+
+-------------------------------------------------------
+-HTML hierarchy-
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Metadata, title, links to CSS, etc. -->
+  </head>
+  <body>
+    <header>
+      <!-- Site header / navigation -->
+    </header>
+
+    <main>
+      article
+      	<section 1></section 1>
+        <section 1></section 1>
+      <aside></aside>
+    </main>
+
+    <footer>
+      <!-- Footer content -->
+    </footer>
+  </body>
+</html>
+
+<div></div> can be used anywhere inside the body
+<span></span>
+
+-------------------------------------------------------
+-Container tags-
+
+<p>paragrapgh</p>
+<b>bold</b>
+<i>italic</i>
+<u>underline</u>
+
+<nav></nav> = nested for hyperlinks
+<a href = "url"> SomeText </a>
+
+
+<ol></ol> = nested with list to make the listorder ordered.
+<ul></ul> = nested with list to make the listorder unordered.
+<li>Item 1</li>
+
+<strong>highlight text</strong> = used like a bold text.
+<em>emphasis text</em> = used like a italic text.
+
+<h1>heading1</h1>
+<h2>heading2</h2>
+<h3>heading3</h3>
+<h4>heading4</h4>
+<h5>heading5</h5>
+<h6>heading6</h6>
+
+<title>Gardening</title>
+
+<html></html> = is used to nest head and body.
+<head></head> = used to include technical info about the page.
+<body></body> = what gets displayed in a website. Used only one.
+
+<body></body>
+<main></main>
+<footer></footer>
+<div></div> = a way to organize.
+<span></span> = a way to organize inside div.
+<article></article> = a piece of content.
+<section></section> = used inside the article.
+<aside></aside> = used inside the article.
+Note: These are used inside the body. They can each only be used once.
+
+<table></table>
+<tr></tr> = rows 
+<td></td> = a cell. This you add inside the tr. This is also a column.
+<th></th> = the column has a header.
+
+<h2 id="section-1">Section 1</h2> = to jump to a specific section of a single website.
+<a href="#section-1">Section 1</a> = marks that this is a section
+
+<form></form> = nested to create a form
+<button>A button with text</button>
+<input type="text" id= box1>
+<label for="box1">Text</label>
+<input type="text" name="name of the column" value="someValue"> = means this data will be sent to a database
+
+<select></select> = creates a dropdown menu
+<option>Option1</option>
+
+<video></video> = nested if you want a list of videos
+<source src="file.mp4" type="video/mp4"> 
+<audio></audio> = nested if you want a list of audio
+<source src="file.mp3" type="audio/mpeg"> 
+For both video and audio you have these attributes: loop, controls, autoplay, muted
+
+<p style="color:green; text-align:center">Green paragraph.</p> = This is inline css. doing css stuff via html
+
+<style></style>=internal css. meaning inside the html file you have a section dedicated to css.
+-------------------------------------------------------
+-Empty container tags-
+
+<img src="url">
+<img src="url" alt="Sometext"> = alt mean to give a description
+for the image.
+<img src="url" width=640 height=360>
+
+<meta name="keywords" content="apple, tree">
+
+<br> = line breaker. 
+
+-------------------------------------------------------
+-To comment in HTML-
+
+<!--SOME COMMENT-->
+-------------------------------------------------------
+
+-------------------------------------------------------
+-Simple Javascript functions addon-
+
+<button onclick="alert('Hello')"> Text to this button </button>
+<img src= "someImage.jpg" onclick="alert('Sometext')">
+-------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------
+-About CSS-
+
+Priority in this order: inline style, ID, class, elements
+
+<p style="color:green; text-align:center">Green paragraph.</p> = This is inline css. doing css stuff via html
+
+<style>
+	h3, p {
+	color: red;
+	font-size: small;
+	}
+
+</style> = internal css. meaning inside the html file you have a section dedicated to css. Usually this is 
+inside the head tag.
+
+h3, p {
+	color: red;
+	font-size: small;
+	} = external css. meaning outside the html file you have a css file dedicated to css.
+
+h1 b{
+  color: red;
+} = The h1 b means you're targeting the b inside h1.
+
+#SomeID{
+  color: red;
+} = applying css only to html tag that has this specific id.
+
+.SomeClass{
+  color: rgb(255, 0, 0) or #FF0000;
+} = applying css only to html tag that has this specific class.
+
+Note: In HTML, use ID for unique element and class for multiple elements
+
+Note: In most web browsers the default size for text is 16px
+
+tr:nth-child(3){
+  background-color: #FFA310;
+}
+
+Box model from inner to outer: Content > Padding > Border > Margin
+
+-Flexbox layout (works great on any screen)- 
+display: block/inline/flex;
+flex-direction: row/column;
+flex-wrap: wrap/nowrap;
+flex-grow: 0, 1, 2, 3 osv;
+flex-shrink: 0, 1, 2, 3 osv;
+
+
+Note: the position from 0,0 start from top-left.
+position:aboslute/fixed/relative;
+left: 10px;
+top: 10px;
+
+body{
+  background-image: url('Someurl');
+  background-repeat: repeat/no-repeat/repeat-x/repeat-y;
+  background-position: xpx ypx OR percentage OR Words like top, left, right, bottom, center;
+  background-size: xpx ypx OR contain OR cover;
+
+}
+
+div:active {
+  transform:translate(50px, 25px);
+  transform:rotate(45deg);
+  transform:scale(2); 2 is twice as big, 0.5 is half, 1 is original size
+  transform-origin: top left OR top right OR right bottom OR left bottom;
+}
+
+-Animation-
+
+transition: width 3s, height 1s, background-color 1s, transform 1s, ...;
+transition-delay: 3s;
+
+animation-name:colorChange;
+animation-duration:3s;
+animation-timing-function: ease/linear/ease-in/ease-out/;
+animation-delay: 3s;
+animation-iteration-count: 5 of infininte;
+OR simple version to the animation tags = animation: name duration timing-function delay interation-count;
+@keyframes colorChange{
+	0%{
+		background-color: red;
+	}
+	50%{
+		background-color: yellow
+	}
+	100%{
+		background-color: blue;
+	}
+}
+-------------------------------------------------------
+-To comment in CSS-
+
+/*SOME COMMENT*/
+-------------------------------------------------------

@@ -1,0 +1,160 @@
+-------------------------------------------------------
+-JavaScript-
+
+inline javascript = <button onclick = 'alert("hello")'> Text for the button </button>
+internal javascript = <script> alert("hello") </script> = this get triggered when the web is loaded in.
+Note for internal javascript: place the script tag at the bottom of the body tag.
+external javascript = a new file where you write js code. you dont need to use script tags.
+
+variables is initialized like this (use the let key word. Feels like combo of Python and C#): let item = "bike";
+if you're updating existing variable = item = "train";
+
+you can use the keyword typeof to check the datatype: typeof variableName;
+
+console.log("whatever");
+document.getElementById("ID from html");
+document.getElementById("ID from html").textContent = 'sometext';
+document.createElement("html tag");
+getElementVAR.appendChild(createElementVAR);
+document.createTextNode();
+element.removeChild(element);
+page.replaceChild(newnode, oldnode);
+
+document.getElementsByTagName("h1") = gets an array of h1 tags that are children to document.
+document.getElementsByClassName("expert") = gets an array of "experts" tags that are children to document.
+
+prompt("Fill text here") = input function
+confirm() = a new window that checks if you're sure.
+
+Number("Stringed number") = will convert it into a number
+String("number") = will convert it into a string
+
+setInterval(rotate, 500); = 500 is in millisecounds
+clearInterval(variable that has the SetInterval);
+
+custom functions looks like this:
+
+function someName(){
+}
+
+When it comes to comparison operators, its the same as in unreal engine blueprint 
+where == is not as accurate as ===. Same goes for !=, use !== instead.
+
+event handlers look like this:
+
+element.addEventListener("click", action);
+element.removeEventListener("click", action);
+element.onClick = function(){ functionName() }
+
+-Events-
+
+Mouse Events
+
+click → mouse button clicked
+
+dblclick → double click
+
+mousedown → mouse button pressed
+
+mouseup → mouse button released
+
+mouseenter / mouseleave → when mouse enters or leaves an element
+
+mouseover / mouseout → similar to above, bubbles
+
+mousemove → mouse moves over element
+
+
+Keyboard Events
+
+keydown → key pressed
+
+keyup → key released
+
+keypress → key pressed (deprecated, mostly use keydown)
+
+
+Form Events
+
+submit → form submitted
+
+change → input value changed
+
+input → input value changes while typing
+
+focus → input gets focus
+
+blur → input loses focus
+
+
+Window/Document Events
+
+load → page fully loaded
+
+resize → window resized
+
+scroll → user scrolls
+
+unload → page is unloading
+
+
+Clipboard Events
+
+copy, cut, paste
+
+
+Drag & Drop Events
+
+drag, dragstart, dragend, dragover, drop
+
+
+Pointer Events (touch and mouse unified)
+
+pointerdown, pointerup, pointermove, pointerover, pointerout
+
+function someFunction(event){
+	event.target.style.color = "blue";
+	event.target.addEventListener('click', someFunction);
+}
+
+Arrays are created like this:
+
+const variableName = [0, 1, 2];
+variableName[1] = thats how you get it
+variableName.length
+
+-------------------------------------------------------
+-To comment in javaScript-
+
+// just like in C#
+
+
+
+-------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------
+-TypeScript-
+
+TypeScript code cannot run in the browser directly.
+You compile .ts to .js, then the browser runs the JS output.
+To do it you open the terminal on the same file path and type:
+tsc.cmd filename.ts
+node filename.js
+
+export {}; // use this at the beginning of the file so that the variable is within the same file. Or typescript 
+will think that the variables are global
+
+let item: string = "bike";
+Note: Makes sure that the variable has a type. If you update the variable, it must be of the same type.
+
+interface User {
+  name: string;
+  age: number;
+}
+const user: User = { name: "Alice", age: 25 };
+
+const function: const variableName = (parameter1:datatype, parameter2:datatype) => { SomeStatement (No ;) }
+
+string interpolation: `hello ${amin}`
+
+-------------------------------------------------------
