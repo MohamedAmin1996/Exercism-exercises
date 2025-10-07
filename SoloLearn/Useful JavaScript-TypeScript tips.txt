@@ -128,8 +128,6 @@ variableName.length
 
 // just like in C#
 
-
-
 -------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------
@@ -138,14 +136,14 @@ variableName.length
 TypeScript code cannot run in the browser directly.
 You compile .ts to .js, then the browser runs the JS output.
 To do it you open the terminal on the same file path and type:
-tsc.cmd filename.ts
+tsc filename.ts
 node filename.js
 
 export {}; // use this at the beginning of the file so that the variable is within the same file. Or typescript 
 will think that the variables are global
 
 let item: string = "bike";
-Note: Makes sure that the variable has a type. If you update the variable, it must be of the same type.
+const item: string = "bike";
 
 interface User {
   name: string;
@@ -153,8 +151,48 @@ interface User {
 }
 const user: User = { name: "Alice", age: 25 };
 
-const function: const variableName = (parameter1:datatype, parameter2:datatype) => { SomeStatement (No ;) }
+Function expression (LEGACY BUT WORKS): const variableName = function(parameter1: datatype, parameter2: datatype) {
+  // function body
+};
 
-string interpolation: `hello ${amin}`
+Arrow function (MODERN AND PREFERRED): const variableName = (parameter1:datatype, parameter2:datatype) => { 
+  // function body (NOTE: No ; at the end) 
+}
 
+string interpolation: `hello ${amin}` 
+
+Arrays: export const COLORS = [
+      'black',
+      'brown',
+      'red',
+      'orange',
+      'yellow',
+      'green',
+      'blue',
+      'violet',
+      'grey',
+      'white',
+]
+
+in the parameter if you want to use array inside paratathese: [color1, color2, multiplier]: string[]
+
+KeyValue Map: const colorCodes: { [key: string]: number } = {
+  black: 0,
+  brown: 1,
+  red: 2,
+  orange: 3,
+  yellow: 4,
+  green: 5,
+  blue: 6,
+  violet: 7,
+  grey: 8,
+  white: 9
+};
+
+in the parameter if you want to use Keyvalue pair inside paratathese: pair: { [key: string]: number }
+
+
+if you're working with decimals and want to use .00 then: Number(age.toFixed(2))
+Note: toFixed is a string that returns the decimals after point. Wrap it with Number to convert 
+it back into a number.
 -------------------------------------------------------
