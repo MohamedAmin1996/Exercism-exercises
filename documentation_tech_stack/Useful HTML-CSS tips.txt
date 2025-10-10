@@ -226,3 +226,6 @@ OR simple version to the animation tags = animation: name duration timing-functi
 
 /*SOME COMMENT*/
 -------------------------------------------------------
+-Neat tricks-
+
+In VSCode, if you type ! and then enter, it will create a basic html template

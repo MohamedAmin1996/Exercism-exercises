@@ -139,6 +139,12 @@ To do it you open the terminal on the same file path and type:
 tsc filename.ts
 node filename.js
 
+In the compiler create a typescript configure file. This handles how to convert from ts files to js files: tsc --init
+Note: create this in the project folder. on the target, select CTRL + space to select which compiler version.
+Note: outDir is where you specify where you want the generated js file to be. rootDir should be the folder where the ts files are.
+Note: removeComments option is good. it means that the generated js files does not have comments.
+Note: activate noEmitOnError. It means that if there is a bug in the ts code, it cannot be generated into a js code.
+
 export {}; // use this at the beginning of the file so that the variable is within the same file. Or typescript 
 will think that the variables are global
 

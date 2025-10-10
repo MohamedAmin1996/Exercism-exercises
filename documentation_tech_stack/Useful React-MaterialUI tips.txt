@@ -1,0 +1,230 @@
+-------------------------------------------------------
+-React_TypeScript-
+
+Routing: Routing in React means switching between different pages (or components) without reloading the page.
+Example:
+
+npm install react-router-dom
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+function Home() {
+  return <h2>Home Page</h2>;
+}
+
+function About() {
+  return <h2>About Page</h2>;
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+State Management: State is data that affects how your component looks and behaves.
+Example:
+
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+    </>
+  );
+}
+
+Authentication: Controlling who can access what in your app. 
+You might use services like Firebase Auth, Auth0, or JWT tokens from your backend.
+Example:
+
+function App() {
+  const [user, setUser] = useState(null);
+
+  return user ? <Dashboard /> : <Login onLogin={() => setUser(true)} />;
+}
+
+Performance Optimizations: Making your React app faster. Use React.memo() to avoid unnecessary re-renders.
+Use useCallback() and useMemo() for expensive computations.
+Example:
+
+const MemoizedComponent = React.memo(function Greeting({ name }) {
+  console.log("Rendered!");
+  return <h2>Hello, {name}</h2>;
+});
+
+Form Validation: Checking that form input is valid before submitting.
+Example:
+
+npm install react-hook-form
+
+import { useForm } from "react-hook-form";
+
+function Signup() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("email", { required: "Email is required" })} />
+      {errors.email && <p>{errors.email.message}</p>}
+      <button>Submit</button>
+    </form>
+  );
+}
+
+
+Internationalization: Making your app support multiple languages.
+Example:
+
+npm install react-i18next i18next
+
+import { useTranslation } from "react-i18next";
+
+function Welcome() {
+  const { t } = useTranslation();
+  return <h2>{t("welcome_message")}</h2>;
+}
+
+Debuigging React Apps: Use React Developer Tools (browser extension). Use console.log() wisely.
+Add Error Boundaries. Check component re-renders with React DevTools “Profiler”.
+For network issues → use browser’s Network tab.
+
+
+--------
+-Hooks-
+
+useState = Manages state (data that changes over time). Counters, toggles, input forms
+useEffect = Runs side effects (e.g., data fetching, timers). Fetch data on load, update DOM, cleanups
+useContext = Accesses context values (global data). Theme, auth, language, user settings
+useRef = Keeps a mutable reference that doesn’t trigger re-renders. Access DOM nodes, store previous values
+useCallback = Memoizes functions to prevent re-creation on re-render. Prevent unnecessary child renders
+useMemo = Caches expensive calculations. Optimize performance for heavy computations
+
+
+--------
+
+Ways to create a react app template: CRA (Create React App), Vite (USE THIS):
+Go to the folder where you want to create the project and type in the terminal: 
+npm create vite@4.1.0
+cd "yourProjectName"
+npm install
+
+Then when you want to run you react app, type this in the terminal:
+npm run dev
+
+To make a build, type this in the terminal:
+npm run build
+Note: the build should be in the dist/ folder
+
+To preview the build, type this in the terminal:
+npm run preview
+
+To create a react component, use the .tsx file format. The way you work is functional programming,
+meaning each component has 1 function and at the bottom of the component you type "export default (your function)"
+
+--------
+
+NOTE: If your element uses a class (NOT ID but class) you cannot use the word class. Instead use className.
+
+NOTE: In VSCode I have changed the shortcut for "Add Selection to Next Find Match" or multi-cursor editing
+to CTRL+ALT+D
+
+If you have a variable or a function that returns something that you want to insert in the html element, 
+use {} and type you variable inside it.
+
+A react component can only return one element. So if you have for example 2 h1 element, you cannot return both.
+To solve this, wrap this with a empty wrapper like this: <></>
+
+Interface Props = think of it like a struct (interface Prop{}) where you put in the variables. Then in the 
+function parameter inside the component, reference that prop like this {var1, var2}:NameOfInterface
+Note: children: string OR children: ReactNode is a special prop property that allows you to have html as an
+argument.
+
+-------------------------------------------------------
+-Bootstrap (CSS Library)-
+
+To install bootstap on the terminal: npm install bootstrap@2.3
+To import it to the project: import 'bootstrap/dist/css/bootstrap.css'
+Note: import this into the main.tsx
+
+Help from the website when it comes to creating components like list, buttons etc:
+www.getbootstrap.com > Docs > Component (on the left side)
+
+
+--------
+className="list-group-item"
+
+-------------------------------------------------------
+-MaterialUI (CSS Library PREFFERED)-
+
+To install MUI on the terminal: npm install @mui/material @emotion/react @emotion/styled
+
+Help from the website when it comes to creating components like list, buttons etc:
+https://mui.com/material-ui/ > search for the component that you want.
+
+Responsive Design: means working with different sizes.
+This keyword are different sizes in px on the width.
+
+xs (phones) = 0-99
+sm (tablets) = 600-899
+md (desktop) = 900-1199
+lg = 1200-1535
+xl = 1535+
+
+sx means style x. it is a prop for applying css styles directly to a component.
+<Box sx={{ bgcolor: 'primary.main', p: 2, borderRadius: 1 }}>
+  Hello MUI
+</Box
+
+MUI’s Grid system uses a 12-column layout. 
+The numbers tell the Grid how many columns this item should span at different screen sizes.
+So if you see something like xs={12} this means that on a small screen, use the full width.
+Example:
+
+<Grid container spacing={2}>
+  <Grid item xs={12} sm={6} md={4}>
+    Item 1
+  </Grid>
+  <Grid item xs={12} sm={6} md={4}>
+    Item 2
+  </Grid>
+</Grid>
+
+If you are not using a gridsystem and instead is using a box. The you use percentage instead.
+Example:
+
+<Box
+  sx={{
+    bgcolor: 'primary.main',
+    width: {
+      xs: '100%',  // full width on small phone screens
+      sm: '50%',   // half width on small tablet screens
+      md: '25%',   // quarter width on medium+
+    },
+    p: 2,
+  }}
+>
+  Responsive Box
+</Box>
+
+If you want to customize the css part. In the opening component element, add style{{ type css code here}}
+
+
+-------------------------------------------------------
