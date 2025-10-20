@@ -9,6 +9,7 @@ Replace /path/to/your/preferred/directory with your preferred folder path.
 -Download exercise-
 
 exercism download --track=csharp --exercise=lucians-luscious-lasagna
+For typeScript: corepack yarn install
 
 Note: Each exercise has a path you can copy
 
@@ -16,14 +17,21 @@ Note: Each exercise has a path you can copy
 
 Each exercise has a README file that explains what you should do.
 
-You also have a Help.md that shows you how to submit an exercise, how to run unit tests, etc.
+You also have a Help.md file that shows you how to submit an exercise, run unit tests, and more.
 
 You also have a Hints.md that gives you hints on how to solve the exercise.
 
 
--Run the testunit CI/CD-
+-Run the testunit-
 
-Run the test by going to the Test Explorer and click or CTRL+R+A
+For C#: IN VS2022 run the test by going to the Test Explorer and clicking or CTRL+R+A
+
+For Python: Go to the project folder and type cmd to open the terminal. Then type pytest project_test.py. 
+OR if you're using VSCode the click File > Open Folder and open the project folder. Then there is a KEMI icon, where you can run the unit test.
+
+For SQLite: Go to the project folder and type cmd to open the terminal. Then type sqlite3 -bail < hello-world_test.sql
+
+For typeScript: go to the exercise folder, open the terminal, type yarn test
 
 -Submit exercise-
 
