@@ -131,6 +131,9 @@ for the image.
 -------------------------------------------------------
 -About CSS-
 
+padding is manipulating element from the inside.
+margin is manipulating element from the outside.
+
 Priority in this order: inline style, ID, class, elements
 
 <p style="color:green; text-align:center">Green paragraph.</p> = This is inline css. doing css stuff via html

@@ -138,6 +138,7 @@ npm run preview
 
 To create a react component, use the .tsx file format. The way you work is functional programming,
 meaning each component has 1 function and at the bottom of the component you type "export default (your function)"
+NOTE: To quickly create a component template, type rc + enter.
 
 --------
 
@@ -174,7 +175,7 @@ className="list-group-item"
 -------------------------------------------------------
 -MaterialUI (CSS Library PREFFERED)-
 
-To install MUI on the terminal: npm install @mui/material @emotion/react @emotion/styled
+To install MUI on the terminal: npm install @mui/material @mui/joy @emotion/react @emotion/styled
 
 Help from the website when it comes to creating components like list, buttons etc:
 https://mui.com/material-ui/ > search for the component that you want.
@@ -182,11 +183,11 @@ https://mui.com/material-ui/ > search for the component that you want.
 Responsive Design: means working with different sizes.
 This keyword are different sizes in px on the width.
 
-xs (phones) = 0-99
-sm (tablets) = 600-899
-md (desktop) = 900-1199
-lg = 1200-1535
-xl = 1535+
+xs (Phones / small mobile devices) = 0-599
+sm (Tablets / large phones) = 600-899
+md (Small laptops / large tablets) = 900-1199
+lg (Desktops / standard laptops)= 1200-1535
+xl (Large desktops / 4K screens) = 1535+
 
 sx means style x. it is a prop for applying css styles directly to a component.
 <Box sx={{ bgcolor: 'primary.main', p: 2, borderRadius: 1 }}>
@@ -223,6 +224,9 @@ Example:
 >
   Responsive Box
 </Box>
+
+OR use vh and vw meaning viewport height and width. Your write something like this: 100vh 50vw.
+Use rem instead of px for text. 1rem is 16px. This way is more responsive.
 
 If you want to customize the css part. In the opening component element, add style{{ type css code here}}
 
