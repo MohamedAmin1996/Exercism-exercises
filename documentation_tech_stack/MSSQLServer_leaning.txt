@@ -1,0 +1,47 @@
+How to analyze Querys:
+
+Once you write a SQL query, click on the Execution Plan.
+You will see how your query will perform and you can see the process from right to left and up to down.
+If the percentage is high, look into them first.
+
+There are many operations happening under the hood. You have different types of Scans and Seeks:
+
+- Table Scans go through all rows in a table that is stored as a heap structure.
+- Clustered index Scans go through all rows in a table that is stored as a clustered index.
+- Clustered index Seek traverses the tree structure of a tables stored as a clustered index. This is faster than Clustered index Scans.
+- Index Scan reads all of the key values of an index to find the matching data.
+- Index Seek traverses the tree structure of an index to find the matching index keys. This is faster than Index Scan.
+
+Note: Clustered index means a table is stored in order based on id and then you get that specific row. 
+Non-clustered index or just regular index is stored in order based of a specific column or
+multiple columns and then gives a pointer to the specific row in the main table.
+
+You can use Keyword before running your query to see what is happening under the hood:
+
+- SET STATISTIC IO ON
+- SET STATISTIC TIME ON
+
+What this allows is to see CPU time and elapsed time. The bigger the number, the worse it is.
+You can also see something called "logical read". Each logical read is 8kb and so the bigger the logical read and you multiply with 8kb and you 
+can see how much memory is being written/read. Again, the bigger 9it is the worse this is.
+
+Solutions optimize you query can depend on many things. Here are few suggestions:
+
+- Make a index on one or multiple columns that are being read often.
+- Change the query so that it does not have to loop though all rows
+- Instead of getting all columns, get selected columns.
+
+When creating a non-clustered index based on a column. It is important that the columns in the right order.
+You can see which columns you should use when you're creating the index based of your query where you're using operation like:
+- WHERE
+- Foreign Keys
+
+Also in your query and when creating a index, is important to be as selective as possible and not vague. Otherwise it is perform a scan which is slow.
+Good to know: if your WHERE clause has a function in it. You have to first add that function in the table, then create an index and then run the original query.
+
+Dynamic management views (DMV)...Used to view what SQL statement are being slow via logical read, IO, CPU time. For each statement, you can also see its execution plan
+to see if that specific statement need to be refactored. You can also how many indexes you have, if they are useful, if they are updated etc. This how ever is NOT during runtime.
+SQL Server Extended Events... Used to trace a session when your application is running and using MS SQL Server. After the session, you have a file and you can see
+what has happened during runtime and what is causing the server to be so slow.
+
+Use parameterized sql statement in you application. If youre using EF core or Hibernate, they will automatically already do that for you.
