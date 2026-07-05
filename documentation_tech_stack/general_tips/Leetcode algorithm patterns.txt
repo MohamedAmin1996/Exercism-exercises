@@ -1,0 +1,892 @@
+Prefix Sum
+
+OG Array:		   1, 2, 3, 4, 5 
+Prefix Sum array:	0, 1, 3, 6, 10, 15 
+
+
+
+Explanation:
+Prefix Sum is a precomputation technique used to answer queries about the sum of any subarray in ultra-fast O(1) constant time. Instead of running a loop to add up numbers every time a query is asked (which takes O(N) time), you build a secondary "Prefix Array" upfront.
+
+The N + 1 Size Industry Trick:
+To completely avoid out-of-bounds errors (like trying to access index -1 when Left is 0), we initialize the Prefix Array to be one slot larger than the original array (Size N + 1).
+
+Index 0 of the Prefix Array is always a dummy 0 (representing the sum of 0 elements).
+
+Every other element is shifted right by 1 index. Prefix[i] stores the cumulative sum of all numbers up to OG index i - 1.
+
+The Conversion Formula:
+To build the padded prefix array:
+Prefix[i + 1] = Prefix[i] + OG[i]
+
+The Magic Query Formula:
+To find the sum of any subarray from index Left to index Right:
+Sum(Left, Right) = Prefix[right + 1] - Prefix[left]
+
+
+
+Example Breakdown:
+Let's find the sum of elements from Index 2 to Index 4 in our OG Array: [1, 2, 3, 4, 5]
+Left = 2, Right = 4 (Maximum possible index)
+
+Using the formula: Prefix[Right + 1] - Prefix[Left]
+= Prefix[4 + 1]     - Prefix[2]
+= Prefix[5]         - Prefix[2]
+
+Look up the values in our Prefix Array:
+
+Prefix[5] = 15  (This is safe! The extra slot protects us from breaking the bounds)
+
+Prefix[2] = 3
+
+Subtract them: 15 - 3 = 12.
+
+Let's check a Left = 0 edge case: Find the sum from Index 0 to Index 2.
+Using the formula: Prefix[2 + 1] - Prefix[0]
+= Prefix[3]     - Prefix[0]
+= 6             - 0
+= 6. (Safe from negative index errors!)
+
+---------------------------------------------------
+Two Pointer
+
+OG Array:	1, 2, 4, 6, 8, 9, 14
+Target:		13
+
+
+
+Explanation:
+The Two Pointer pattern is an optimization technique used on linear data structures (arrays, strings, or linked lists). It avoids nested loops by processing two different indices at the same time. This usually drops a slow O(N^2) brute-force runtime down to a lightning-fast O(N) linear runtime.
+
+The two main variations are:
+
+Opposite Ends (Converging): One pointer starts at the beginning (Left) and the other at the end (Right). They march toward each other until they meet. (Used for sorting, palindromes, or searching pairs in sorted data).
+
+Same Direction (Fast & Slow): Both pointers start at the beginning, but one moves faster than the other. (Used for finding cycles or middle elements).
+
+The Unbreakable Rule for Converging Pointers:
+If you are searching for a pair that meets a target sum, the array MUST be sorted.
+
+How it works (Converging Example):
+
+Place a Left pointer at index 0 and a Right pointer at index N - 1.
+
+Check the condition of the elements at Left and Right.
+
+Decide which pointer to move based on the result:
+
+If Current Sum == Target: You found it! Return the indices.
+
+If Current Sum < Target: Your sum is too small. To make it bigger, move the Left pointer forward (Left++).
+
+If Current Sum > Target: Your sum is too big. To make it smaller, move the Right pointer backward (Right--).
+
+
+
+Example Breakdown:
+Find a pair that adds up to Target = 13 in: [1, 2, 4, 6, 8, 9, 14]
+Indices:                                    0  1  2  3  4  5   6
+
+Round 1:
+Left = 0 (Val: 1), Right = 6 (Val: 14)
+Current Sum = 1 + 14 = 15
+Compare: Is 15 == 13? No.
+Is 15 > 13? Yes! The sum is too big. We need smaller numbers.
+Shift Right tracker: Right-- (Right becomes index 5).
+
+Round 2:
+Left = 0 (Val: 1), Right = 5 (Val: 9)
+Current Sum = 1 + 9 = 10
+Compare: Is 10 == 13? No.
+Is 10 < 13? Yes! The sum is too small. We need larger numbers.
+Shift Left tracker: Left++ (Left becomes index 1).
+
+Round 3:
+Left = 1 (Val: 2), Right = 5 (Val: 9)
+Current Sum = 2 + 9 = 11
+Is 11 < 13? Yes! Sum is still too small.
+Shift Left tracker: Left++ (Left becomes index 2).
+
+Round 4:
+Left = 2 (Val: 4), Right = 5 (Val: 9)
+Current Sum = 4 + 9 = 13
+Compare: Is 13 == 13? YES!
+Return Indices: [2, 5].
+
+---------------------------------------------------
+Sliding Window
+
+OG Array:	2, 1, 5, 1, 3, 2
+Window size:	3	
+
+
+Explanation:
+The Sliding Window pattern is used to perform operations on a specific contiguous subarray (or subsegment) of a larger array or string. It takes problems that would normally require a brute-force nested loop O(N^2) and optimizes them into a single linear pass O(N).
+
+Think of it like a physical window pane sliding across your data. Instead of recomputing the entire contents of the window from scratch every time it shifts, you simply add the new element entering from the right and subtract the old element exiting from the left.
+
+The two main variations are:
+
+1. Fixed Window: The size of the window K is constant. (e.g., "Find the maximum sum of any subarray of size 3").
+2. Dynamic Window: The size of the window expands or shrinks based on a condition. (e.g., "Find the shortest subarray that sums up to bigger or equal to 7").
+
+How it works (Fixed Window Example):
+
+1. Compute the sum of the very first window of size K.
+2. Slide the window forward by 1 element.
+3. Update the sum in O(1) time: `New Sum = Current Sum + Next Element - Expired Element`.
+4. Keep track of the maximum or minimum value seen so far.
+
+
+
+Example Breakdown (Max Sum Subarray of size K = 3):
+Array: [2, 1, 5, 1, 3, 2]
+Index:  0  1  2  3  4  5
+
+* Initial Window (Indices 0 to 2):
+Elements: [2, 1, 5] -> Sum = 2 + 1 + 5 = 8
+Max Sum = 8
+
+* Slide 1 (Drop index 0, Add index 3):
+New Window Elements: [1, 5, 1]
+O(1) Math: 8 - 2 (expired) + 1 (new) = 7
+Max Sum = Max(8, 7) = 8
+
+* Slide 2 (Drop index 1, Add index 4):
+New Window Elements: [5, 1, 3]
+O(1) Math: 7 - 1 (expired) + 3 (new) = 9
+Max Sum = Max(8, 9) = 9
+
+* Slide 3 (Drop index 2, Add index 5):
+New Window Elements: [1, 3, 2]
+O(1) Math: 9 - 5 (expired) + 2 (new) = 6
+Max Sum = Max(9, 6) = 9
+
+Final Max Sum: 9
+
+---------------------------------------------------
+Fast & Slow Pointer
+
+OG LinkedList:	1 -> 2, 2 -> 3, 3 -> 4, 4 -> 5, 5 -> 6, 6 -> 1
+
+
+
+Explanation:
+Unlike the standard Two Pointer pattern where pointers move from opposite ends, the Fast and Slow Pointer pattern moves both pointers in the same direction but at different speeds.
+
+The Slow pointer moves 1 step at a time.
+
+The Fast pointer moves 2 steps at a time.
+
+This pattern is the ultimate tool for detecting cycles in a Linked List or finding a specific structural position (like the exact middle node) in a single pass without using any extra memory (O(1) Space).
+
+The Magic Principle (Cycle Detection):
+Imagine two runners on a circular track. If one runner goes twice as fast as the other, the faster runner will eventually lap the slower runner. They must meet. If there is no cycle, the fast runner will simply reach the end of the track (null) and stop.
+
+How it works (Detecting a Cycle):
+
+Initialize both Slow and Fast pointers at the Head node.
+
+Enter a loop where:
+
+Slow moves forward by 1 node: slow = slow.next
+
+Fast moves forward by 2 nodes: fast = fast.next.next
+
+At each step, compare the two pointers:
+
+If fast == slow: A cycle exists! Return true.
+
+If fast or fast.next becomes null: The fast pointer reached the end of a straight line. No cycle exists! Return false.
+
+
+
+Example Breakdown (Finding the Middle of a straight list):
+List: [1, 2, 3, 4, 5]
+
+Start:
+Slow = 1, Fast = 1
+
+Step 1:
+Slow moves 1 step -> Node 2
+Fast moves 2 steps -> Node 3
+
+Step 2:
+Slow moves 1 step -> Node 3  (This is the exact middle!)
+Fast moves 2 steps -> Node 5  (This is the end!)
+
+Loop ends because Fast cannot move forward 2 more steps. Slow is pointing perfectly at the middle element.
+
+---------------------------------------------------
+Linked List In-Place Reversal 
+
+OG List:       1 -> 2 -> 3 -> 4 -> null
+Reversed:     null <- 1 <- 2 <- 3 <- 4 (which is 4 -> 3 -> 2 -> 1 -> null)	
+
+
+
+Explanation:
+This pattern reverses the links between nodes in a Linked List in-place, meaning we mutate the pointers of the existing nodes directly without creating any new nodes or copying data. This keeps our memory consumption at an ideal O(1) Space Complexity.
+
+The core challenge of this pattern is changing a node's pointer without breaking the chain. If you are looking at Node 1 and you change its .next pointer to point backward to null, you instantly lose your map to Node 2! To prevent this, you must use a temporary tracker to "bookmark" the next node before breaking the connection.
+
+The 3-Pointer Dance:
+To safely reverse a list, you maintain three moving pointers simultaneously:
+
+Current: The node you are actively standing on.
+
+Prev: The node right behind you (which Current needs to point back to).
+
+Next: The node right in front of you (the bookmark).
+
+How it works (The Core Loop Step-by-Step):
+Before the loop starts, set Prev = null and Current = Head.
+
+Inside the loop, perform these 4 specific steps in order:
+
+BOOKMARK: Save the next node.
+Next = Current.next
+
+REVERSE: Flip the pointer to face backward.
+Current.next = Prev
+
+STEP FORWARD (PART 1): Move Prev up to where Current is standing.
+Prev = Current
+
+STEP FORWARD (PART 2): Move Current up to your bookmark.
+Current = Next
+
+
+
+Example Breakdown:
+Let's reverse: 1 -> 2 -> 3 -> null
+
+Setup:
+Prev = null, Current = 1
+
+Round 1 (On Node 1):
+
+Next = 1.next (Bookmark Node 2)
+
+1.next = null (Node 1 now points back to null!)
+
+Prev = 1
+
+Current = 2
+State: null <- 1  (Current is now at 2, Prev is at 1)
+
+Round 2 (On Node 2):
+
+Next = 2.next (Bookmark Node 3)
+
+2.next = 1 (Node 2 now points back to Node 1!)
+
+Prev = 2
+
+Current = 3
+State: null <- 1 <- 2  (Current is now at 3, Prev is at 2)
+
+Round 3 (On Node 3):
+
+Next = 3.next (Bookmark null)
+
+3.next = 2 (Node 3 now points back to Node 2!)
+
+Prev = 3
+
+Current = null
+State: null <- 1 <- 2 <- 3 (Current is null, loop exits!)
+
+Return:
+Since Current is null, Prev is standing at Node 3, which is the new Head of our reversed list! Return Prev.
+
+---------------------------------------------------
+Monotonic Stack
+
+OG Array:	2, 1, 2, 4, 3	
+
+
+
+Explanation: A stack is "monotonic" if all the elements inside the stack are kept in a strict order.
+
+Monotonically Decreasing Stack: Elements go from biggest at the bottom to smallest at the top. If a new element is bigger than the top of the stack, you must pop elements off until the new element can fit.
+
+Monotonically Increasing Stack: Elements go from smallest at the bottom to biggest at the top. If a new element is smaller than the top of the stack, you must pop elements off until the new element can fit.
+
+
+
+Example: We start with an empty stack and move BACKWARD through the array [2, 1, 2, 4, 3] from right to left.
+
+Look at 3:
+Stack is empty.
+Store: -1
+Push 3.
+Current Stack: [3]
+
+Look at 4:
+4 is bigger than stack top (3), so POP 3.
+Stack is now empty.
+Store: -1
+Push 4.
+Current Stack: [4]
+
+Look at 2:
+2 is smaller than stack top (4), so do NOT pop.
+Store top element: 4
+Push 2.
+Current Stack: [4, 2]
+
+Look at 1:
+1 is smaller than stack top (2), so do NOT pop.
+Store top element: 2
+Push 1.
+Current Stack: [4, 2, 1]
+
+Look at 2:
+2 is bigger than stack top (1), so POP 1.
+2 is equal to new stack top (2), so POP 2.
+New stack top is 4, which is bigger than 2, so STOP popping.
+Store top element: 4
+Push 2.
+Current Stack: [4, 2]
+
+---------------------------------------------------
+Top 'k' Elements
+
+OG Array:	3, 10, 5, 20, 1, 15
+K: 		3	
+
+
+
+Explanation: Whenever a problem asks you to find the "K largest", "K smallest", or "K most frequent" elements in an unsorted array, this is the pattern.
+
+The brute force way is to sort the entire array, which takes O(N log N) time.
+The Top 'K' pattern uses a data structure called a "Heap" (or Priority Queue) to do it much faster, in O(N log K) time.
+
+To find the K LARGEST elements, we use a MIN-HEAP. (PriorityQueue is a MinHeap by default)
+To find the K SMALLEST elements, we use a MAX-HEAP. (To turn it into a Max-Heap, you simply multiply your priority value by -1 when you push it in! By making the numbers negative, you trick the computer: -10 becomes smaller than -2, so 10 gets treated like it belongs at the bottom, forcing it to the top.)
+
+We push numbers into the heap. If the heap size grows bigger than K, we pop the SMALLEST number out.
+
+By constantly kicking out the smallest numbers, only the largest ones survive at the end!
+
+
+
+Example: We start with an empty Min-Heap. Our target size is K = 3. We look at the array [3, 10, 5, 20, 1, 15] from left to right.
+
+Look at 3:
+Push 3 into heap. Heap size is 1 (less than K).
+Current Heap: [3]
+
+Look at 10:
+Push 10 into heap. Heap size is 2 (less than K).
+Current Heap: [3, 10]
+
+Look at 5:
+Push 5 into heap. Heap size is 3 (matches K).
+Current Heap: [3, 5, 10]
+
+Look at 20:
+Push 20 into heap. Heap size is now 4 (too big!).
+We must POP the smallest element. The smallest is 3.
+Current Heap after POP: [5, 10, 20]
+
+Look at 1:
+Push 1 into heap. Heap size is now 4 (too big!).
+We must POP the smallest element. The smallest is 1.
+Current Heap after POP: [5, 10, 20]
+
+Look at 15:
+Push 15 into heap. Heap size is now 4 (too big!).
+We must POP the smallest element. The smallest is 5.
+Current Heap after POP: [10, 15, 20]
+
+Final Result in Heap: 10, 15, 20 (The 3 largest numbers!)
+
+---------------------------------------------------
+Quick Select
+
+OG Array:       3, 2, 1, 5, 6, 4
+Find Kth:       K = 2 (We want the 2nd LARGEST number)
+Target Index:   If sorted ascending, the 2nd largest would sit at index: (Array Length - K) -> (6 - 2) = Index 4.
+
+	
+Explanation: Quick Select is an optimization of the Quick Sort algorithm. It is used to find the "Kth smallest" or "Kth largest" element in an unsorted array without fully sorting the array.
+
+Instead of O(N log N) time like sorting, or O(N log K) time like a Heap, Quick Select runs in O(N) average time!
+
+How it works:
+
+Pick a random number in the array to be the "Pivot".
+
+Partition the array: Move all numbers SMALLER than the pivot to its left, and all numbers BIGGER than the pivot to its right.
+
+After doing this once, the Pivot is now sitting in its final, permanently correct sorted position.
+
+Check the Pivot's index:
+
+If Pivot Index == Target Index: BOOM! You found the answer.
+
+If Pivot Index < Target Index: The answer is on the right side. Repeat the steps ONLY on the right half.
+
+If Pivot Index > Target Index: The answer is on the left side. Repeat the steps ONLY on the left half.
+
+
+
+Example: We want to find the element that belongs at Target Index = 4 in [3, 2, 1, 5, 6, 4].
+
+Step 1: Pick a pivot. Let's say we choose the last number: 4.
+
+Step 2: Partition around 4. Move smaller numbers left, bigger numbers right.
+The array becomes: [3, 2, 1, 4, 6, 5]
+Notice that 4 is now perfectly at Index 3.
+
+Step 3: Compare Pivot Index 3 (where 4 is) to our Target Index 4.
+3 is LESS than 4. This means our target must be hiding on the right side of 4.
+
+Step 4: Ignore the left side completely! Repeat the process ONLY on the remaining right side: [6, 5].
+
+Pick a pivot from [6, 5]. Let's say we pick 5.
+
+Partition around 5: [5, 6].
+
+5 lands at Index 4.
+
+Step 5: Compare Pivot Index 4 to our Target Index 4.
+It's a perfect match!
+
+Final Result: 5 (The 2nd largest number in the array).
+
+---------------------------------------------------
+Overlapping Intervals
+
+OG Array:	[1,3], [8,10], [2,6], [15,18]	
+
+
+
+Explanation: This pattern deals with time slots, schedules, or ranges. The classic problems ask you to either merge overlapping slots (like booking meeting rooms) or find out where they clash.
+
+The Golden Rule of Intervals:
+You CANNOT solve these problems reliably unless you SORT them first by their START times. Once sorted, you only need to look at two intervals at a time: the one you are building (Current) and the next one in line (Next).
+
+There are two possibilities when comparing them:
+
+They OVERLAP: If Next.Start <= Current.End
+Action: Merge them by updating Current.End to the max of both ends.
+
+They DO NOT overlap: If Next.Start > Current.End
+Action: Current is finished! Save it to your results, and make Next the new Current.
+
+
+
+Example: Let's trace the OG Intervals: [1,3], [8,10], [2,6], [15,18]
+
+Step 1: SORT by start times.
+Sorted Array: [1,3], [2,6], [8,10], [15,18]
+
+Step 2: Initialize your "Current" interval with the first one: [1,3].
+
+Step 3: Compare with [2,6] (Next)
+Is Next.Start (2) <= Current.End (3)? YES! They overlap.
+Merge them: Keep start at 1. New end is Max(3, 6) = 6.
+Current is now updated to: [1,6]
+
+Step 4: Compare with [8,10] (Next)
+Is Next.Start (8) <= Current.End (6)? NO! They do not overlap.
+Save [1,6] to your final results list.
+Make [8,10] your new Current interval.
+
+Step 5: Compare with [15,18] (Next)
+Is Next.Start (15) <= Current.End (10)? NO! No overlap.
+Save [8,10] to your final results list.
+Make [15,18] your new Current interval.
+
+Step 6: Loop ends. Save the final Current interval [15,18] to the results.
+
+Final Merged Results: [1,6], [8,10], [15,18]
+
+---------------------------------------------------
+Binary search
+
+OG Array:       1, 3, 5, 7, 9, 11, 13
+Target:         9
+
+
+
+Explanation:
+Binary Search is the ultimate tool for finding an element in a collection. It cuts your search space exactly in half with every single step, giving it an incredibly fast O(log N) time complexity.
+
+The Unbreakable Rule of Binary Search:
+The array MUST be sorted. If the data is not sorted, Binary Search will completely fail.
+
+How it works:
+
+Maintain two trackers: "Left" at the start of the array, and "Right" at the end.
+
+Find the exact middle index (Mid) between Left and Right.
+
+Compare the number at Mid to your Target:
+
+If Mid == Target: You found it! Return the index.
+
+If Mid < Target: Your target is bigger, so it must be on the right side. Move your Left tracker to Mid + 1.
+
+If Mid > Target: Your target is smaller, so it must be on the left side. Move your Right tracker to Mid - 1.
+
+Keep looping until Left and Right cross each other. If they cross and you haven't found it, the number is not in the array.
+
+
+
+Example: Let's find Target = 9 in the array: [1, 3, 5, 7, 9, 11, 13]. Left is index 0 and Right is index 6.
+
+Round 1:
+Left = 0, Right = 6
+Mid = (0 + 6) / 2 = Index 3 (Value at Index 3 is 7)
+Compare: Is 7 == 9? No.
+Is 7 < 9? Yes! Our target is larger.
+Shift Left tracker: Left = Mid + 1 -> Left = 4.
+
+Round 2:
+Left = 4, Right = 6
+Mid = (4 + 6) / 2 = Index 5 (Value at Index 5 is 11)
+Compare: Is 11 == 9? No.
+Is 11 > 9? Yes! Our target is smaller.
+Shift Right tracker: Right = Mid - 1 -> Right = 4.
+
+Round 3:
+Left = 4, Right = 4
+Mid = (4 + 4) / 2 = Index 4 (Value at Index 4 is 9)
+Compare: Is 9 == 9? YES!
+Return Index 4.
+
+--------------------------------------------------
+Modified Binary Search 
+
+OG Array:       4, 5, 6, 7, 0, 1, 2
+Target:		0
+
+
+
+Explanation: Even if a sorted array has been rotated, at least one half of the array (left or right of Mid) will always remain perfectly sorted.
+
+We can exploit this property to perform a modified binary search:
+
+Find the Mid point just like regular binary search.
+
+Figure out WHICH half of the array is perfectly sorted (Left half or Right half).
+
+Check if our Target falls within the boundaries of that perfectly sorted half:
+
+If it does: Narrow your search space to that sorted half.
+
+If it does not: The target must be in the other, unsorted half.
+
+
+
+Example: Let's find Target = 0 in the array: [4, 5, 6, 7, 0, 1, 2]  
+
+Round 1:
+Left = 0, Right = 6
+Mid = (0 + 6) / 2 = Index 3 (Value at Index 3 is 7)
+Compare: Is 7 == 0? No.
+
+Identify the sorted half:
+
+Is Left half sorted? Look at Left (4) and Mid (7). Since 4 <= 7, the LEFT half [4, 5, 6, 7] is perfectly sorted!
+
+Check if Target (0) is inside the sorted Left half boundaries (between 4 and 7):
+
+Is 0 >= 4 and 0 <= 7? NO! 0 is not in that range.
+
+Therefore, 0 MUST be in the Right half.
+
+Shift Left tracker: Left = Mid + 1 -> Left = 4.
+
+Round 2:
+Left = 4, Right = 6
+Mid = (4 + 6) / 2 = Index 5 (Value at Index 5 is 1)
+Compare: Is 1 == 0? No.
+
+Identify the sorted half:
+
+Look at Left (Index 4, value 0) and Mid (Index 5, value 1). Since 0 <= 1, the LEFT side of this sub-section is sorted.
+
+Check if Target (0) is inside the sorted boundaries (between 0 and 1):
+
+Is 0 >= 0 and 0 <= 1? YES! It is in this range.
+
+Shift Right tracker to stay in this range: Right = Mid - 1 -> Right = 4.
+
+Round 3:
+Left = 4, Right = 4
+Mid = (4 + 4) / 2 = Index 4 (Value at Index 4 is 0)
+Compare: Is 0 == 0? YES!
+Return Index 4.    
+
+--------------------------------------------------
+Tree traversal:
+
+       1
+      / \
+     2   3
+    / \
+   4   5
+
+level order traversal:	level by level		- 1, 2, 3, 4, 5		(Good for copying/cloning a tree)
+
+preorder traversal:	root, left, right	- 1, 2, 4, 5, 3		(Prints a Binary Search Tree in sorted order)
+in order traversal:	left, root, right	- 4, 2, 5, 1, 3
+postorder traversal:	left, right, root	- 4, 5, 2, 3, 1		(Good for deleting trees or bottom-up math)
+
+---------------------------------------------------
+Breadth-First Search (BFS) (queue) (Levelorder traversal)
+
+OG Tree Structure:                3
+     				 / \
+     				9   20
+   			       / \
+   			     15   7
+
+
+Explanation: Tree BFS explores a tree level-by-level (row-by-row) from top to bottom, reading left to right. It is the ultimate tool for finding the "shortest path" or handling data based on its horizontal layer.
+
+The Mechanics:
+
+BFS uses a QUEUE (First In, First Out).
+
+To separate the levels cleanly, we use a "Level Size Loop". At the start of every level, we look at the queue size. That number tells us exactly how many nodes are on the current row.
+
+We loop exactly that many times, dequeueing nodes, saving their values, and adding their children to the queue for the NEXT row.
+
+
+
+Example: Let's trace the OG Tree to group the numbers level-by-level.
+
+Round 1 (Level 0):
+Queue starts with Root: [3]
+Level Size = 1. We will loop 1 time.
+
+Dequeue 3. Save to this level's list.
+
+Enqueue 3's children: 9 and 20.
+Queue state at end of level: [9, 20]
+Result updated: [[3]]
+
+Round 2 (Level 1):
+Queue holds: [9, 20]
+Level Size = 2. We will loop 2 times.
+
+Dequeue 9. Save to list. (9 has no children, do nothing).
+
+Dequeue 20. Save to list. Enqueue 20's children: 15 and 7.
+Queue state at end of level: [15, 7]
+Result updated: [[3], [9, 20]]
+
+Round 3 (Level 2):
+Queue holds: [15, 7]
+Level Size = 2. We will loop 2 times.
+
+Dequeue 15. Save to list.
+
+Dequeue 7. Save to list.
+Queue state at end of level: [] (Empty!)
+Result updated: [[3], [9, 20], [15, 7]]
+
+Final Result Array: [[3], [9, 20], [15, 7]]
+
+
+---------------------------------------------------
+Depth-First Search (DFS) (stack/recursion or Call stack which is used bny the computer itself) (preorder, in order, postorder traversal)
+
+OG Tree Structure:                1
+     				 / \
+     				2   3
+   			       / \
+   			      4   5
+
+
+Explanation: Tree DFS dives as deep as possible down a single path to a dead end (a leaf node) before backtracking up to check other paths. It is the perfect tool when you need to traverse paths from top-to-bottom, check leaf nodes, or calculate values from the bottom-up.
+
+The Mechanics:
+
+DFS naturally uses a STACK (Last In, First Out) to remember how to backtrack.
+
+The easiest way to build a stack in code is through RECURSION. When a function calls itself, the computer automatically creates a "Call Stack" behind the scenes.
+
+Every recursive DFS function needs a "Base Case" (e.g., if the current node is null, stop and go back).
+
+
+
+Example: (Pre-Order: Root -> Left -> Right):
+Let's trace how the recursive Call Stack moves through the OG Tree.
+
+Step 1: Start at 1. Process 1. Go Left to 2.
+Call Stack: [DFS(1)]
+Output: 1
+
+Step 2: Now at 2. Process 2. Go Left to 4.
+Call Stack: [DFS(1), DFS(2)]
+Output: 1, 2
+
+Step 3: Now at 4. Process 4. Try Left -> Null (returns). Try Right -> Null (returns).
+Call Stack: [DFS(1), DFS(2), DFS(4)]
+Output: 1, 2, 4
+4 is completely done. It gets popped off the system stack.
+
+Step 4: Backtrack to 2. 2's Left is done. Now go to 2's Right, which is 5.
+Call Stack: [DFS(1), DFS(2)] -> then becomes: [DFS(1), DFS(2), DFS(5)]
+Process 5. 5 has no children, so it returns and gets popped.
+Output: 1, 2, 4, 5
+2 is now completely done. It gets popped off the stack.
+
+Step 5: Backtrack to 1. 1's Left is totally done. Now go to 1's Right, which is 3.
+Call Stack: [DFS(1)] -> then becomes: [DFS(1), DFS(3)]
+Process 3. 3 has no children, so it returns and gets popped.
+Output: 1, 2, 4, 5, 3
+
+Step 6: 1 is completely done. The Call Stack is empty. Loop finishes.
+
+Final Result Array (Pre-Order): [1, 2, 4, 5, 3]
+
+
+---------------------------------------------------
+Matrix Traversal
+
+OG Grid Example (4x5 Matrix):
+1  1  0  0  0
+1  1  0  0  0
+0  0  1  0  0
+0  0  0  1  1
+
+(This grid has 3 distinct "islands" of 1s)
+
+
+
+Explanation:
+Matrix traversal treats a 2D array (rows and columns) like a Graph. Every cell is a node, and its neighbors (Up, Down, Left, Right) are connected branches.
+
+Instead of moving to "node.left" or "node.right" like a tree, we move by altering our Row index (r) and Column index (c).
+
+The 4 Golden Rules of Grids:
+
+THE NEIGHBOR VECTORS:
+To check all 4 directions around cell (r, c), you calculate:
+
+Up:    (r - 1, c)
+
+Down:  (r + 1, c)
+
+Left:  (r, c - 1)
+
+Right: (r, c + 1)
+
+THE BOUNDARY GUARDRAIL:
+Before you look at a neighbor, you MUST verify it isn't out of bounds.
+Invalid if: r < 0, c < 0, r >= maxRows, or c >= maxCols.
+
+THE VISITED TRACKER:
+To avoid looping forever between neighbors, you must mark cells you have already seen. You can either use a matching 2D boolean array, or change the grid data in-place (e.g., turning a land '1' into a water '0' once visited).
+
+THE STARTING DOUBLE LOOP:
+Trees have one root entry point. Grids do not. You must run a nested loop through every row and column to scan for your starting position.
+
+
+
+Example Breakdown (Counting Islands using DFS):
+We loop through the OG Grid from top-left to bottom-right.
+
+Cell (0,0) is '1'. Island found!
+
+islandCount becomes 1.
+
+Trigger DFS at (0,0) to turn all connected land into '0's so we don't count them again.
+
+DFS visits (0,0) -> marks to '0'.
+
+DFS goes Down to (1,0) -> marks to '0'.
+
+DFS goes Right to (1,1) -> marks to '0'.
+
+DFS goes Up to (0,1) -> marks to '0'.
+
+All neighbors of this island are now water ('0'). DFS finishes.
+
+Continuation of Double Loop:
+
+The loop skips all the '0's we just flipped.
+
+At Cell (2,2), it finds a '1'. Island found! islandCount becomes 2. DFS turns it to '0'.
+
+At Cell (3,3), it finds a '1'. Island found! islandCount becomes 3. DFS turns (3,3) and its neighbor (3,4) into '0's.
+
+Final Result: 3 Islands
+
+---------------------------------------------------
+Backtracking pattern
+
+OG Input Array: [1, 2, 3]
+Target Task:    Find all possible Permutations (orderings).
+
+
+
+Backtracking is an extension of Depth-First Search (DFS). It is a brute-force approach used when a problem asks you to find all possible combinations, permutations, subsets, or paths to solve a puzzle (like Sudoku or N-Queens).
+
+Think of backtracking as a tree of choices. You try one choice, dive deep into its consequences, and if it either succeeds or hits a dead end, you undo that choice (backtrack) so you can try the next choice on the same level.
+
+The 3 Key Ingredients of Backtracking:
+
+GOAL: The condition where you've successfully built a valid solution. (e.g., "My current list size equals the input array size"). If you hit the goal, save it!
+
+CHOICES: The options you can pick from at your current step. (e.g., "Looping through all numbers in the input array").
+
+CONSTRAINTS: The rules stopping you from making an invalid choice. (e.g., "I cannot reuse a number I already picked").
+
+
+
+Example Breakdown (Finding Permutations of [1, 2, 3]):
+We start with an empty list [] and a choice loop that looks at 1, 2, and 3.
+
+Choice 1: Pick 1. Current list = [1]. Dive deeper.
+
+Choice 1a: Try 1. Constraint blocks it (already used).
+
+Choice 1b: Pick 2. Current list = [1, 2]. Dive deeper.
+
+Choice 1b-i: Pick 3. Current list = [1, 2, 3].
+
+GOAL REACHED! Save [1, 2, 3] to results.
+
+Backtrack! Remove 3. List goes back to [1, 2].
+
+Backtrack! Remove 2. List goes back to [1].
+
+Choice 1c: Pick 3. Current list = [1, 3]. Dive deeper.
+
+Choice 1c-i: Pick 2. Current list = [1, 3, 2].
+
+GOAL REACHED! Save [1, 3, 2] to results.
+
+Backtrack! Remove 2. List goes back to [1, 3].
+
+Backtrack! Remove 3. List goes back to [].
+
+Choice 2: Pick 2. Current list = [2]. Dive deeper... (Process repeats).
+
+---------------------------------------------------
+Dynamic Programming
+
+Divide into smaller problems and then store each solution so that you dont have to repeat the work. then combine them into one big solution.
+
+Example of patterns you should know: 
+
+fibonacci numbers
+0/1 knapsack
+longest common subsequence (LCS)
+longest increasing subsequence (LIS)
+Subset sum
+matrix chain multiplication
+kadance's algorithm
+
+DOCUMENT ON ANOTHER DAY!!!
+
+---------------------------------------------------

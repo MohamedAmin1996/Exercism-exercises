@@ -298,7 +298,7 @@ arr.Length — Total number of elements in the array (works for all arrays).
 arr.Rank — Number of dimensions of the array.
 arr.GetLength(dimension) — Length of the specified dimension (0-based index).
 -------------------------------------------------------
-This is multidimensional array. NOT Jagged Array (Arrays inside of an array). 
+This is multidimensional array. 
 Think of this like a table with row and column.
 
 int[ , ] someNums = { {2, 3}, {5, 6}, {4, 6} };
@@ -316,6 +316,40 @@ for (int row = 0; row < someNums.GetLength(0); row++)  // rows
         Console.Write(someNums[row, col] + " ");
     }
     Console.WriteLine();
+}
+-------------------------------------------------------
+This is jagged array.  
+Think of this like an arrays inside of an array.
+
+// A jagged array with 3 rows. Column sizes are not set yet!
+int[][] jaggedArray = new int[3][];
+
+// You must initialize each row individually
+jaggedArray[0] = new int[2]; // Row 0 has 2 columns
+jaggedArray[1] = new int[4]; // Row 1 has 4 columns
+jaggedArray[2] = new int[3]; // Row 2 has 3 columns
+
+// Initialization with data
+int[][] directJagged = {
+    new int[] { 1, 2 },
+    new int[] { 3, 4, 5, 6 },
+    new int[] { 7, 8, 9 }
+};
+
+How to loop with multidimensional array:
+
+// Outer loop iterates through each row
+for (int i = 0; i < jaggedArray.Length; i++)
+{
+    Console.Write($"Row {i}: ");
+
+    // Inner loop iterates through the elements of the current row (jaggedArray[i])
+    for (int j = 0; j < jaggedArray[i].Length; j++)
+    {
+        Console.Write(jaggedArray[i][j] + " ");
+    }
+    
+    Console.WriteLine(); // Move to the next line for the next row
 }
 -------------------------------------------------------
 String are actually objects in C#. because of this, the string object has a bunch of functions:
