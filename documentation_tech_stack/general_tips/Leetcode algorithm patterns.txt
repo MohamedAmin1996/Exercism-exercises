@@ -641,7 +641,7 @@ postorder traversal:	left, right, root	- 4, 5, 2, 3, 1		(Good for deleting trees
 ---------------------------------------------------
 Breadth-First Search (BFS) (queue) (Levelorder traversal)
 
-OG Tree Structure:                3
+OG Tree Structure:    3
      				 / \
      				9   20
    			       / \
@@ -698,7 +698,7 @@ Final Result Array: [[3], [9, 20], [15, 7]]
 ---------------------------------------------------
 Depth-First Search (DFS) (stack/recursion or Call stack which is used bny the computer itself) (preorder, in order, postorder traversal)
 
-OG Tree Structure:                1
+OG Tree Structure:    1
      				 / \
      				2   3
    			       / \

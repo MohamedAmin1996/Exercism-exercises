@@ -1,0 +1,69 @@
+Core Settings
+-------------
+Open Settings UI:                       CTRL + ,
+Open Command Palette:                   CTRL + SHIFT + P
+
+
+IntelliSense & Methods
+----------------------
+See code documentation:                 CTRL + SPACE
+Show method overloads:                  CTRL + SHIFT + SPACE (Inside parentheses)
+
+
+Panel Toggle Shortcuts
+----------------------
+Problems Window:                        CTRL + SHIFT + M
+Output Logs:                            CTRL + SHIFT + U 
+Debug Console:                          CTRL + SHIFT + Y
+Terminal Panel:                         CTRL +  Ö
+
+
+Integrated Debugger
+-------------------
+Start/Continue:                         FN + F5  
+Step Over line:                         FN + F10
+Step Into method:                       FN + F11
+Step Out of method:                     SHIFT + FN + F11
+Restart Session:                        CTRL + SHIFT + FN + F5
+Stop Debugging:                         SHIFT + FN + F5
+
+
+Navigation & Code Exploring
+----------------------
+Go to Definition:                       FN + F12
+Peek Definition:                        Alt + FN + F12
+Go Back:                                Alt + Left Arrow 
+Go Forward:                             Alt + Right Arrow
+Go to File:                             Ctrl + P
+
+
+Code Editing & Refactoring
+----------------------
+Quick Fix / Suggestions:                Ctrl + .
+Format Document:                        Shift + Alt + F
+Move Line Up :                          Alt + Up Arrow 
+Move Line Down:                         Alt + Down Arrow
+
+
+COMMON SHORTCUTS
+-------------------
+
+Selecting symbol in multiple lines:     CTRL + ALT + Arrow Keys.
+
+---
+
+Comment a line:                         CTRL + *
+Comment a block:                        SHIFT + ALT + A
+
+---
+
+Duplicate Line Down:                    SHIFT + ALT + Down Arrow
+Duplicate Line Up:                      SHIFT + ALT + Up Arrow
+
+---
+
+Rename variable:                        FN + F2
+
+---
+
+Quickly selecting from IntelliSense:    Left TAB
