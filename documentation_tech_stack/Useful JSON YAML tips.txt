@@ -1,0 +1,83 @@
+Learn how to write JSON files:
+{
+  "key": "string",
+  "key": 123,
+  "key": true,
+  "key": null,
+
+  "key": 
+  {
+    "key": "value",
+    "key": "value",
+    "key": "value"
+  },
+
+  "key": 
+  [
+    "value 1",
+    "value 2",
+    "value n"
+  ],
+
+  "key": 
+  [
+    {
+      "key": "value",
+      "key": "value"
+    },
+    {
+      "key": "value",
+      "key": "value"
+    }
+  ],
+
+  "key": 
+  [
+    [1, 2, 3],
+    [4, 5, 6]
+  ]
+
+"startup_script": "echo \"Starting server...\"\nexec node index.js"
+}
+--------------------------------------------------------------------------------------
+Learn how to write yaml files (TWO INDENTATION):
+
+# Primitives
+key: "string"
+key: 123
+key: true
+key: null
+
+# Object (Nested Keys)
+key:
+  key: value
+  key: value
+  key: value
+
+# Array of Primitives
+key:
+  - value 1
+  - value 2
+  - value n
+
+# Array of Objects
+key:
+  - key: value
+    key: value
+  - key: value
+    key: value
+
+# Array of Arrays (Nested Lists)
+key:
+  - - 1
+    - 2
+    - 3
+  - - 4
+    - 5
+    - 6 
+
+startup_script: |
+  echo Starting server...
+  exec node index.js
+
+
